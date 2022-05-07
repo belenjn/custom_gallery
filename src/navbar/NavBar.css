@@ -1,0 +1,12 @@
+
+a {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 80px;
+    
+}
+
+a:hover {
+    cursor: pointer;
+   
+}

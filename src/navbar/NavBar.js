@@ -1,37 +1,31 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import './NavBar.css'
+// import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import "./NavBar.css";
+import { Box } from "@mui/system";
+
+
 
 export const NavBar = () => {
   return (
-    <div>
-      <AppBar position="static" sx={{bgcolor: '#4527a0'}}>
-        <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <PhotoCameraIcon />
-          </IconButton>
-          <Typography component="div" sx={{ mr: 8 }} >
-            <h4>Custom gallery</h4>
-          </Typography>
-          <Typography
-            color="inherit"
-            component="div"
-            align="right"
-            sx={{ mr: 2, mt: 0.5 }}
-          >
-            <h5>Search</h5>
-          </Typography>
-          <Typography color="inherit" component="div" sx={{ mt: 0.5 }}>
-            <h5>My photos</h5>
-          </Typography>
-        </Toolbar>
+    <Box sx={{ flexGrow: 1 }} position='static'>
+      <AppBar position="static" sx={{ bgcolor: "#4527a0" }}>
+          <Toolbar sx={{flexWrap: "wrap", justifyContent: { xs: "left", sm: "space-between"}}}>
+          <Typography >
+                <a href="#home">CUSTOM GALLERY</a>
+            </Typography>
+            <Typography>
+                <Button  variant="contained" sx={{
+                    color: '#4527a0', 
+                    backgroundColor: '#ede7f6', 
+                    ":hover": {
+                        bgcolor: "#b388ff",
+                        color: "#fff"
+                    } }}>My photos</Button>
+            </Typography>
+        
+          </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 };
