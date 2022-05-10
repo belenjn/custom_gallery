@@ -2,6 +2,7 @@ import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
 // import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { Box } from "@mui/system";
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -22,19 +23,20 @@ export const NavBar = () => {
                 }} href="/">CUSTOM GALLERY</Button>
             </Typography>
             <Typography>
-                <Button  variant="text" sx={{
+                <Button  
+                variant="text" sx={{
                     color: '#fff', 
                     ":hover": {
                         bgcolor: "#b388ff",
                         color: "#fff"
-                    } }}>My photos</Button>
+                    } }}><NavLink to="/myPhotos">My photos</NavLink></Button>
                     <Button  variant="text" sx={{
                     color: '#fff', 
                     marginLeft: "20px",
                     ":hover": {
                         bgcolor: "#b388ff",
                         color: "#fff"
-                    } }}>Search</Button>
+                    } }}><NavLink to="/search">Search</NavLink></Button>
             </Typography>
           </Toolbar>
       </AppBar>

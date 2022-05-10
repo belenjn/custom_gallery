@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 import { Box } from "@mui/system";
 
-export const Search = () => {
+export const Searcher = () => {
   return (
     <Box
       display="flex"

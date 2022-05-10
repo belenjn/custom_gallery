@@ -19,12 +19,11 @@ export const GridPhotos = () => {
         sx={{
           border: "1px solid pink",
           marginTop: "100px",
-       
-
         }}
       >
         {Array.from(Array(20)).map((_, index) => (
           <ListItem 
+            key={index}
             sx={{
               backgroundImage: `url(${image})`,
               backgroundRepeat: "no-repeat",
