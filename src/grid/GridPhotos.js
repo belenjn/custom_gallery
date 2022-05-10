@@ -1,7 +1,6 @@
-import { Grid, ListItem } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Grid, ListItem } from "@mui/material";
 import React from "react";
-import image from "./img.jpg"
+import image from "./img.jpg";
 
 //xs, extra-small: 0px
 // sm, small: 600px
@@ -11,45 +10,32 @@ import image from "./img.jpg"
 
 export const GridPhotos = () => {
   return (
-    <Box sx={{
-      border: "1px solid green"
-    }}>
+    <Box>
       <Grid
         container
-        spacing={{ xs: 2, md: 4 }}
+        // spacing={{ xs: 2, md: 4 }}
         columns={{ xs: 3, sm: 8, md: 12 }}
         direction="row"
-        justifyContent="space-between"
+        justifyContent="center"
         sx={{
           border: "1px solid pink",
-          marginTop: "300px"
+          marginTop: "100px",
         }}
       >
         {Array.from(Array(20)).map((_, index) => (
-          <Grid item 
-          xs={3} 
-          sm={3} 
-          md={3} 
-          key={index}
-          sx={{
-            border: "1px solid black",
-            marginTop: "24px",
-            height: "400px",
-
-          }}
-          >
-            <ListItem sx={{
-              border: "1px solid purple",
+          <ListItem 
+            spacing={5}
+            sx={{
               backgroundImage: `url(${image})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPosition: "center",
               borderRadius: "10px",
+              marginBottom: "20px",
               height: "350px",
               width: "240px"
-
-            }}></ListItem>
-          </Grid>
+            }}
+          ></ListItem>
         ))}
       </Grid>
     </Box>

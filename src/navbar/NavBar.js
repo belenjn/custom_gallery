@@ -1,7 +1,6 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
 // import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import "./NavBar.css";
 import { Box } from "@mui/system";
 
 
@@ -12,7 +11,14 @@ export const NavBar = () => {
       <AppBar position="static" sx={{ bgcolor: "#4527a0" }}>
           <Toolbar sx={{flexWrap: "wrap", justifyContent: { xs: "left", sm: "space-between"}}}>
           <Typography >
-                <a href="#home">CUSTOM GALLERY</a>
+                <a sx={{
+                    textDecoration: "none",
+                    color: "#fff",
+                    marginRight: "80px",
+                    ":hover": {
+                        cursor: "pointer"
+                    }
+                }} href="#home">CUSTOM GALLERY</a>
             </Typography>
             <Typography>
                 <Button  variant="text" sx={{
