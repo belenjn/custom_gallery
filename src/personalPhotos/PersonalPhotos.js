@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import {GridPhotos} from '../grid/GridPhotos'
 
 export const PersonalPhotos = () => {
   return (
-    <div>PersonalPhotos</div>
+    <div><GridPhotos/></div>
   )
 }
