@@ -6,22 +6,22 @@ import { Box } from "@mui/system";
 export const Search = () => {
   return (
     <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       sx={{
-        border: "1px solid blue",
-        marginTop: "100px",
+        marginTop: "100px"
       }}
     >
       <Box
         sx={{
-          border: "1px solid green",
-          width: "30%",
+          width: "30%"
         }}
       >
         <form>
           <TextField
             label="Search something"
             variant="outlined"
-            placeholder="Search..."
             sx={{
               width: "300px",
             }}

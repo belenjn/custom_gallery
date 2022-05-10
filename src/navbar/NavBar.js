@@ -11,14 +11,15 @@ export const NavBar = () => {
       <AppBar position="static" sx={{ bgcolor: "#4527a0" }}>
           <Toolbar sx={{flexWrap: "wrap", justifyContent: { xs: "left", sm: "space-between"}}}>
           <Typography >
-                <a sx={{
+                <Button sx={{
                     textDecoration: "none",
+                    fontSize:"25px",
                     color: "#fff",
                     marginRight: "80px",
                     ":hover": {
                         cursor: "pointer"
                     }
-                }} href="#home">CUSTOM GALLERY</a>
+                }} href="/">CUSTOM GALLERY</Button>
             </Typography>
             <Typography>
                 <Button  variant="text" sx={{

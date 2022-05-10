@@ -13,18 +13,18 @@ export const GridPhotos = () => {
     <Box>
       <Grid
         container
-        // spacing={{ xs: 2, md: 4 }}
         columns={{ xs: 3, sm: 8, md: 12 }}
         direction="row"
         justifyContent="center"
         sx={{
           border: "1px solid pink",
           marginTop: "100px",
+       
+
         }}
       >
         {Array.from(Array(20)).map((_, index) => (
           <ListItem 
-            spacing={5}
             sx={{
               backgroundImage: `url(${image})`,
               backgroundRepeat: "no-repeat",
@@ -32,6 +32,8 @@ export const GridPhotos = () => {
               backgroundPosition: "center",
               borderRadius: "10px",
               marginBottom: "20px",
+              marginLeft: "1%",
+              marginRight: "1%",
               height: "350px",
               width: "240px"
             }}
