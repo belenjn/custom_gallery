@@ -15,15 +15,20 @@ export const NavBar = () => {
                 <a href="#home">CUSTOM GALLERY</a>
             </Typography>
             <Typography>
-                <Button  variant="contained" sx={{
-                    color: '#4527a0', 
-                    backgroundColor: '#ede7f6', 
+                <Button  variant="text" sx={{
+                    color: '#fff', 
                     ":hover": {
                         bgcolor: "#b388ff",
                         color: "#fff"
                     } }}>My photos</Button>
+                    <Button  variant="text" sx={{
+                    color: '#fff', 
+                    marginLeft: "20px",
+                    ":hover": {
+                        bgcolor: "#b388ff",
+                        color: "#fff"
+                    } }}>Search</Button>
             </Typography>
-        
           </Toolbar>
       </AppBar>
     </Box>
