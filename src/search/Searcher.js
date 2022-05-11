@@ -2,8 +2,10 @@ import { Grid, IconButton, ListItem, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { Box } from "@mui/system";
+import { apiKey } from "../env";
 
-const Access_Key = "XF3k_wCO3fyZO5fsdZxwgttiq1UPs5_12BZ0kDit9bM";
+
+const Access_Key = apiKey;
 
 export const Searcher = () => {
   const [img, setImg] = useState("");
