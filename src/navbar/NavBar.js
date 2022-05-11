@@ -11,16 +11,20 @@ export const NavBar = () => {
         <Toolbar
           sx={{
             flexWrap: "wrap",
-            justifyContent: { xs: "left", sm: "space-between" },
+            justifyContent: { xs: "space-between", sm: "space-between" },
           }}
         >
           <Typography>
             <Button
               sx={{
                 textDecoration: "none",
-                fontSize: "25px",
+                fontSize: {
+                    xs: "15px",
+                    sm: "20px",
+                    md: "30px",
+                    lg: "35px"
+                },
                 color: "#fff",
-                marginRight: "80px",
                 ":hover": {
                   cursor: "pointer",
                 },
@@ -34,9 +38,13 @@ export const NavBar = () => {
             <Button
               component={NavLink}
               to="/myPhotos"
-              sx={{
+              sx={{fontSize: {
+                xs: "10px",
+                sm: "10px",
+                md: "15px",
+                lg: "15px"
+            },
                 color: "#fff",
-                marginLeft: "20px",
                 ":hover": {
                   bgcolor: "#b388ff",
                   color: "#fff",
@@ -50,6 +58,12 @@ export const NavBar = () => {
               component={NavLink}
               to="/search"
               sx={{
+                fontSize: {
+                    xs: "10px",
+                    sm: "10px",
+                    md: "15px",
+                    lg: "15px"
+                },
                 color: "#fff",
                 marginLeft: "20px",
                 ":hover": {
