@@ -1,9 +1,14 @@
 import { IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/system";
+import Unsplash, { toJson } from "unsplash-js";
+
 
 export const Searcher = () => {
+  const [search, setSearch] = useState("");
+  console.log(search)
+
   return (
     <Box
       display="flex"
@@ -22,6 +27,8 @@ export const Searcher = () => {
           <TextField
             label="Search something"
             variant="outlined"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             sx={{
               width: "300px",
             }}
