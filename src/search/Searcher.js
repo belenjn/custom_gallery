@@ -18,7 +18,6 @@ export const Searcher = () => {
     const dataJ = await data.json();
     const result = dataJ.results;
     setRes(result);
-    console.log(result);
   };
 
   const handleSubmit = (e) => {
@@ -38,8 +37,11 @@ export const Searcher = () => {
         }}
       >
         <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
           sx={{
-            width: "30%",
+            width: "60%",
           }}
         >
           <form onSubmit={handleSubmit}>
@@ -48,14 +50,13 @@ export const Searcher = () => {
               variant="outlined"
               value={img}
               onChange={(e) => setImg(e.target.value)}
-              sx={{
-                width: "300px",
-              }}
+              
             />
-            <IconButton type="submit" aria-label="search">
+           
+          </form>
+          <IconButton type="submit" aria-label="search">
               <SearchIcon style={{ fill: "#4527a0", marginTop: "10px" }} />
             </IconButton>
-          </form>
         </Box>
       </Box>
 
