@@ -1,8 +1,9 @@
-import { Grid, IconButton, ListItem, TextField } from "@mui/material";
+import { autocompleteClasses, Grid, IconButton, ListItem, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import { Box } from "@mui/system";
 import { apiKey } from "../env";
+import AddIcon from '@mui/icons-material/Add';
 
 
 const Access_Key = apiKey;
@@ -86,7 +87,24 @@ export const Searcher = () => {
                 height: "350px",
                 width: "240px",
               }}
-            />))}
+            ><AddIcon sx={{
+              backgroundColor: "#4527a0",
+              borderRadius: "100%",
+              color: "white",
+              fontSize: "22px",
+              padding: "5px",
+              display: "block",
+              marginLeft: "auto",
+              marginRight: 0,
+              marginBottom: "300px",
+              ":hover": {
+                cursor: "pointer",
+                backgroundColor: "#b388ff",
+                fontSize: "25px",
+                transition: "0.2s ease",
+              }
+            }}
+            /></ListItem>))}
           </Grid>
         </Box>
       
