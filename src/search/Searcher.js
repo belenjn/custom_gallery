@@ -13,7 +13,7 @@ export const Searcher = () => {
 
   const fetchRequest = async () => {
     const data = await fetch(
-      `https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=${Access_Key}`
+      `https://api.unsplash.com/search/photos?per_page=30&query=${img}&client_id=${Access_Key}`
     );
     const dataJ = await data.json();
     const result = dataJ.results;
