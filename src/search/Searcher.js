@@ -1,30 +1,52 @@
-import { autocompleteClasses, Grid, IconButton, ListItem, TextField } from "@mui/material";
+import {
+  Grid,
+  IconButton,
+  ListItem,
+  Pagination,
+  TextField,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { apiKey } from "../env";
-import AddIcon from '@mui/icons-material/Add';
-
+import AddIcon from "@mui/icons-material/Add";
+import { useDispatch } from "react-redux";
+import { addImage } from "../features/imagesSlice";
 
 const Access_Key = apiKey;
 
 export const Searcher = () => {
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState("random");
   const [res, setRes] = useState([]);
+  const [page, setPage] = useState(1);
 
-  const fetchRequest = async () => {
-    const data = await fetch(
-      `https://api.unsplash.com/search/photos?per_page=30&query=${img}&client_id=${Access_Key}`
-    );
-    const dataJ = await data.json();
-    const result = dataJ.results;
-    setRes(result);
-  };
+  const dispatch = useDispatch();
+
+  useEffect(
+    () => async () => {
+      const data = await fetch(
+        `https://api.unsplash.com/search/photos?query=${img}&page=${page}&per_page=24&client_id=${Access_Key}`
+      );
+      const dataJson = await data.json();
+      const result = dataJson.results;
+      setRes(result);
+    },
+    [img, page]
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchRequest();
     setImg("");
+  };
+
+  const handleClick = (photo) => {
+    dispatch(addImage(photo));
+    console.log(photo)
+  };
+
+  const handleChange = (event, value) => {
+    setPage(value);
+    console.log(value);
   };
 
   return (
@@ -49,30 +71,27 @@ export const Searcher = () => {
             <TextField
               label="Search something"
               variant="outlined"
-              value={img}
+              // value={img}
               onChange={(e) => setImg(e.target.value)}
-              
             />
-           
           </form>
           <IconButton type="submit" aria-label="search">
-              <SearchIcon style={{ fill: "#4527a0", marginTop: "10px" }} />
-            </IconButton>
+            <SearchIcon sx={{ fill: "#4527a0", marginTop: "10px" }} />
+          </IconButton>
         </Box>
       </Box>
 
-      
-        <Box>
-          <Grid
-            container
-            columns={{ xs: 3, sm: 8, md: 4 }}
-            direction="row"
-            justifyContent="center"
-            sx={{
-              marginTop: "100px",
-            }}
-          >
-            {res.map((val) => (
+      <Box>
+        <Grid
+          container
+          columns={{ xs: 3, sm: 8, md: 4 }}
+          direction="row"
+          justifyContent="center"
+          sx={{
+            marginTop: "100px",
+          }}
+        >
+          {res.map((val) => (
             <ListItem
               key={val.id}
               sx={{
@@ -87,33 +106,44 @@ export const Searcher = () => {
                 height: "350px",
                 width: "240px",
               }}
-            ><AddIcon sx={{
-              backgroundColor: "#4527a0",
-              borderRadius: "100%",
-              color: "white",
-              fontSize: "22px",
-              padding: "5px",
-              display: "block",
-              marginLeft: "auto",
-              marginRight: 0,
-              marginBottom: "300px",
-              ":hover": {
-                cursor: "pointer",
-                backgroundColor: "#b388ff",
-                fontSize: "25px",
-                transition: "0.2s ease",
-              }
-            }}
-            /></ListItem>))}
-          </Grid>
-        </Box>
-      
+            >
+              <AddIcon
+                sx={{
+                  backgroundColor: "#4527a0",
+                  borderRadius: "100%",
+                  color: "white",
+                  fontSize: "22px",
+                  padding: "5px",
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: 0,
+                  marginBottom: "300px",
+                  ":hover": {
+                    cursor: "pointer",
+                    backgroundColor: "#b388ff",
+                    fontSize: "25px",
+                    transition: "0.2s ease",
+                  },
+                }}
+                onClick={() => handleClick(val)}
+              />
+            </ListItem>
+          ))}
+        </Grid>
+      </Box>
+      <Pagination
+        count={10}
+        variant="outlined"
+        color="secondary"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "50px",
+          marginBottom: "100px",
+        }}
+        page={page}
+        onChange={handleChange}
+      />
     </>
   );
 };
-// * Con la configuración item xs={12} sm={4} md={3} lg={2} xl={1}, cada elemento Grid va a ocupar:
-// * - 12 columnas cuando el ancho sea xs (entre 0px y 599px)      => 12/12 = 1  elemento por fila
-// * -  4 columnas cuando el ancho sea sm (entre 600px y 899px)    => 12/4  = 3  elementos por fila
-// * -  3 columnas cuando el ancho sea md (entre 900px y 1199px)   => 12/3  = 4  elementos por fila
-// * -  2 columnas cuando el ancho sea lg (entre 1200px y 1535px)  => 12/2  = 6  elementos por fila
-// * -  1 columna  cuando el ancho sea xl (más de 1536px)          => 12/1  = 12 elementos por fila
