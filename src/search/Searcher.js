@@ -8,12 +8,10 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { apiKey } from "../env";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { addImage, updateImages } from "../features/imagesSlice";
+import { addImage, fetchGetImages } from "../features/imagesSlice";
 
-const Access_Key = apiKey;
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
@@ -21,21 +19,12 @@ export const Searcher = () => {
 
   const dispatch = useDispatch();
   
-  const images = useSelector(store => store.image);
+  const {images} = useSelector((state) => state.imagesStore);
 // console.log(images)
 
-  useEffect(
-    () => async () => {
-      const data = await fetch(
-        `https://api.unsplash.com/search/photos?query=${img}&page=${page}&per_page=24&client_id=${Access_Key}`
-      );
-      const dataJson = await data.json();
-      const result = dataJson.results;
-      dispatch(updateImages(result))
-      // console.log(result)
-    },
-    [img, page, dispatch]
-  );
+useEffect(() => {
+  dispatch(fetchGetImages(img, page))
+}, [dispatch, img, page])
 
   const handleSubmit = (e) => {
     e.preventDefault();

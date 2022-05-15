@@ -3,6 +3,6 @@ import imagesReducer from "../features/imagesSlice";
 
 export default configureStore({
     reducer: {
-        image: imagesReducer
+        imagesStore: imagesReducer
     },
-})
+    middleware: getDefaultMiddleware =>  getDefaultMiddleware({    serializableCheck: false,  }),});

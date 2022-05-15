@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchImg } from "./imagesAPI";
 
 /*
 1. Para trabajar con el state, nunca hay que mutarlo hay metodos como push que mutan el estado inicial 
@@ -40,6 +41,10 @@ con solo poner en el apartado reducer: ya tienes la funcion de arriba.
 
  */
 
+export const fetchGetImages = createAsyncThunk("fetchImages", async (img, page) => {
+    return await fetchImg(img, page)
+});
+
 const setLocalStorageFunc = (value) => {
   localStorage.setItem("image", JSON.stringify(value));
 };
@@ -47,10 +52,15 @@ const setLocalStorageFunc = (value) => {
 const ejemplo = JSON.parse(localStorage.getItem("image"))
 // console.log(ejemplo);
 
-const initialState = [];
+const initialState = {
+    images: [],
+    favImages: [],
+    status: ""
+};
+
 export const imagesSlice = createSlice({
   name: "image",
-  initialState: initialState,
+  initialState,
   reducers: {
     // Y los datos que entran siempre son action.payload
     addImage: (state, action) => {
@@ -60,16 +70,33 @@ export const imagesSlice = createSlice({
         
       return newState;
     },
-    updateImages: (state, action) => {
-        console.log(action.payload)
-        return action.payload
-    },
+    // updateImages: (state, action) => {
+    //     console.log(action.payload)
+        
+    //     return action.payload
+    // },
 
     deleteImage: (state) => {},
     modifyDescriptionImage: (state) => {},
   },
-});
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchGetImages.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchGetImages.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.images = action.payload
+      })
+      .addCase(fetchGetImages.rejected, (state) => {
+        state.status = 'failed'
+    })
+},
+})
 
 export const { addImage, deleteImage, modifyDescriptionImage, updateImages } = imagesSlice.actions;
 
 export default imagesSlice.reducer;
+
+export const images = (state) => state.imagesStore.images;
+// export const favImages = (state) => state.imagesStore.favImages;

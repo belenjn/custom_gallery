@@ -1,15 +1,25 @@
-import { ListItem } from '@mui/material';
+import { Grid, ListItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from 'react';
 import { useSelector } from "react-redux";
+import { Box } from '@mui/system';
 
 
 export const PersonalPhotos = () => {
 
-  const images = useSelector(store => store.image)
+  const images = useSelector(state => state.image)
   
   return (
-    <div>
+    <Box>
+    <Grid
+      container
+      columns={{ xs: 3, sm: 8, md: 4 }}
+      direction="row"
+      justifyContent="center"
+      sx={{
+        marginTop: "100px",
+      }}
+    >
       {images.map(item => (
             <ListItem
               key={item.id}
@@ -47,6 +57,7 @@ export const PersonalPhotos = () => {
               />
             </ListItem>
           ))}
-    </div>
+          </Grid>
+    </Box>
   )
 }
