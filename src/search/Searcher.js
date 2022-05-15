@@ -10,17 +10,19 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { apiKey } from "../env";
 import AddIcon from "@mui/icons-material/Add";
-import { useDispatch } from "react-redux";
-import { addImage } from "../features/imagesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addImage, updateImages } from "../features/imagesSlice";
 
 const Access_Key = apiKey;
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
-  const [res, setRes] = useState([]);
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
+  
+  const images = useSelector(store => store.image);
+// console.log(images)
 
   useEffect(
     () => async () => {
@@ -29,9 +31,10 @@ export const Searcher = () => {
       );
       const dataJson = await data.json();
       const result = dataJson.results;
-      setRes(result);
+      dispatch(updateImages(result))
+      // console.log(result)
     },
-    [img, page]
+    [img, page, dispatch]
   );
 
   const handleSubmit = (e) => {
@@ -91,11 +94,11 @@ export const Searcher = () => {
             marginTop: "100px",
           }}
         >
-          {res.map((val) => (
+          {images.map(item => (
             <ListItem
-              key={val.id}
+              key={item.id}
               sx={{
-                backgroundImage: `url(${val.urls.small})`,
+                backgroundImage: `url(${item.urls.small})`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -125,7 +128,7 @@ export const Searcher = () => {
                     transition: "0.2s ease",
                   },
                 }}
-                onClick={() => handleClick(val)}
+                onClick={() => handleClick(item)}
               />
             </ListItem>
           ))}

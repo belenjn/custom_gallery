@@ -1,6 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-
-
+import { createSlice } from "@reduxjs/toolkit";
 
 /*
 1. Para trabajar con el state, nunca hay que mutarlo hay metodos como push que mutan el estado inicial 
@@ -42,35 +40,36 @@ con solo poner en el apartado reducer: ya tienes la funcion de arriba.
 
  */
 
-const localFunc = (value) => {
-    // localStorage.setItem("hola", "1") 
-    localStorage.setItem("image", JSON.stringify(value) )
-}
+const setLocalStorageFunc = (value) => {
+  localStorage.setItem("image", JSON.stringify(value));
+};
+//JSON.parse()
+const ejemplo = JSON.parse(localStorage.getItem("image"))
+// console.log(ejemplo);
 
-const initialState =  [];
+const initialState = [];
 export const imagesSlice = createSlice({
-    name: "image",
-    initialState: initialState,
-    reducers: {// Y los datos que entran siempre son action.payload
-        addImage: (state, action) => { 
-          console.log(state);
-          const newState = [...state, action.payload]
-          localFunc(newState)
-          return newState ;
-        },
+  name: "image",
+  initialState: initialState,
+  reducers: {
+    // Y los datos que entran siempre son action.payload
+    addImage: (state, action) => {
+    
+      const newState = [...state, action.payload];
+      setLocalStorageFunc(newState);
         
-        deleteImage: (state) => {
-            
-        },
-        modifyDescription: (state) => {
+      return newState;
+    },
+    updateImages: (state, action) => {
+        console.log(action.payload)
+        return action.payload
+    },
 
-        }
-    }
-  
-})
+    deleteImage: (state) => {},
+    modifyDescriptionImage: (state) => {},
+  },
+});
 
-
-
-export const {addImage, deleteImage, modifyDescription} = imagesSlice.actions;
+export const { addImage, deleteImage, modifyDescriptionImage, updateImages } = imagesSlice.actions;
 
 export default imagesSlice.reducer;
