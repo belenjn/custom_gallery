@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 
 export const PersonalPhotos = () => {
 
-  const images = useSelector(state => state.image)
+  const {favImages} = useSelector((state) => state.imagesStore);
   
   return (
     <Box>
@@ -20,7 +20,7 @@ export const PersonalPhotos = () => {
         marginTop: "100px",
       }}
     >
-      {images.map(item => (
+      {favImages.map(item => (
             <ListItem
               key={item.id}
               sx={{

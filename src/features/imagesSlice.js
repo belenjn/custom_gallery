@@ -41,22 +41,33 @@ con solo poner en el apartado reducer: ya tienes la funcion de arriba.
 
  */
 
-export const fetchGetImages = createAsyncThunk("fetchImages", async (img, page) => {
-    return await fetchImg(img, page)
-});
+export const fetchGetImages = createAsyncThunk(
+  "fetchImages",
+  async (img, page) => {
+    return await fetchImg(img, page);
+  }
+);
 
 const setLocalStorageFunc = (value) => {
   localStorage.setItem("image", JSON.stringify(value));
+  
 };
-//JSON.parse()
-const ejemplo = JSON.parse(localStorage.getItem("image"))
+
+// const ejemplo = JSON.parse(localStorage.getItem("image"));
 // console.log(ejemplo);
 
 const initialState = {
-    images: [],
-    favImages: [],
-    status: ""
+  images: [],
+  favImages: [],
+  status: "",
 };
+
+/**
+ Hay que hacer una función de comparativa para los datos del Local.
+ Si el Local tiene imgs la retornará y sino retornará un [].
+ Entonces, depsués de hacer eso, favImages tendrá como estado inicial, esa función.
+ Y por último en el addImage habrá que poner que el state.favImages = action.payload.
+ */
 
 export const imagesSlice = createSlice({
   name: "image",
@@ -64,39 +75,29 @@ export const imagesSlice = createSlice({
   reducers: {
     // Y los datos que entran siempre son action.payload
     addImage: (state, action) => {
-    
-      const newState = [...state, action.payload];
-      setLocalStorageFunc(newState);
-        
-      return newState;
+      setLocalStorageFunc(action.payload);
+      state.favImages = [...state.favImages,action.payload];
+      console.log(state.favImages);
     },
-    // updateImages: (state, action) => {
-    //     console.log(action.payload)
-        
-    //     return action.payload
-    // },
-
-    deleteImage: (state) => {},
-    modifyDescriptionImage: (state) => {},
+    deleteImage: () => {},
+    modifyDescriptionImage: () => {},
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetImages.pending, (state) => {
-        state.status = 'loading'
+        state.status = "loading";
       })
       .addCase(fetchGetImages.fulfilled, (state, action) => {
-        state.status = 'success'
-        state.images = action.payload
+        state.status = "success";
+        state.images = action.payload;
       })
       .addCase(fetchGetImages.rejected, (state) => {
-        state.status = 'failed'
-    })
-},
-})
+        state.status = "failed";
+      });
+  },
+});
 
-export const { addImage, deleteImage, modifyDescriptionImage, updateImages } = imagesSlice.actions;
+export const { addImage, deleteImage, modifyDescriptionImage } =
+  imagesSlice.actions;
 
 export default imagesSlice.reducer;
-
-export const images = (state) => state.imagesStore.images;
-// export const favImages = (state) => state.imagesStore.favImages;

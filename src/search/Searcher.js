@@ -12,7 +12,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
 
-
 export const Searcher = () => {
   const [img, setImg] = useState("random");
   const [page, setPage] = useState(1);
@@ -20,7 +19,7 @@ export const Searcher = () => {
   const dispatch = useDispatch();
   
   const {images} = useSelector((state) => state.imagesStore);
-// console.log(images)
+
 
 useEffect(() => {
   dispatch(fetchGetImages(img, page))
@@ -33,7 +32,7 @@ useEffect(() => {
 
   const handleClick = (photo) => {
     dispatch(addImage(photo));
-    console.log(photo)
+    //Crear un pequeño mensaje conforme se ha guardado la foto
   };
 
   const handleChange = (event, value) => {
