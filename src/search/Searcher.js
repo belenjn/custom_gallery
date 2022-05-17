@@ -11,19 +11,20 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
+// import GradeIcon from "@mui/icons-material/Grade";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
   const [page, setPage] = useState(1);
 
+
   const dispatch = useDispatch();
-  
-  const {images} = useSelector((state) => state.imagesStore);
 
+  const { images } = useSelector((state) => state.imagesStore);
 
-useEffect(() => {
-  dispatch(fetchGetImages(img, page))
-}, [dispatch, img, page])
+  useEffect(() => {
+    dispatch(fetchGetImages(img, page));
+  }, [dispatch, img, page]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ useEffect(() => {
 
   const handleClick = (photo) => {
     dispatch(addImage(photo));
-    //Crear un pequeño mensaje conforme se ha guardado la foto
+
   };
 
   const handleChange = (event, value) => {
@@ -62,7 +63,6 @@ useEffect(() => {
             <TextField
               label="Search something"
               variant="outlined"
-              // value={img}
               onChange={(e) => setImg(e.target.value)}
             />
           </form>
@@ -82,7 +82,7 @@ useEffect(() => {
             marginTop: "100px",
           }}
         >
-          {images.map(item => (
+          {images.map((item) => (
             <ListItem
               key={item.id}
               sx={{
@@ -98,26 +98,47 @@ useEffect(() => {
                 width: "240px",
               }}
             >
-              <AddIcon
-                sx={{
-                  backgroundColor: "#4527a0",
-                  borderRadius: "100%",
-                  color: "white",
-                  fontSize: "22px",
-                  padding: "5px",
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: 0,
-                  marginBottom: "300px",
-                  ":hover": {
-                    cursor: "pointer",
-                    backgroundColor: "#b388ff",
-                    fontSize: "25px",
-                    transition: "0.2s ease",
-                  },
-                }}
-                onClick={() => handleClick(item)}
-              />
+         
+                <AddIcon
+                  sx={{
+                    backgroundColor: "#4527a0",
+                    borderRadius: "100%",
+                    color: "white",
+                    fontSize: "22px",
+                    padding: "5px",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: 0,
+                    marginBottom: "300px",
+                    ":hover": {
+                      cursor: "pointer",
+                      backgroundColor: "#b388ff",
+                      fontSize: "25px",
+                      transition: "0.2s ease",
+                    },
+                  }}
+                  onClick={() => handleClick(item)}
+                />
+            
+
+              {/* {show && (
+                <GradeIcon
+                  sx={{
+                    backgroundColor: "transparent",
+                    borderRadius: "100%",
+                    color: "#ffeb3b",
+                    fontSize: "30px",
+                    display: "block",
+                    padding: "3px",
+                    marginLeft: "auto",
+                    marginRight: 0,
+                    marginBottom: "300px",
+                    ":hover": {
+                      cursor: "pointer",
+                    },
+                  }}
+                />
+              )} */}
             </ListItem>
           ))}
         </Grid>
@@ -134,6 +155,7 @@ useEffect(() => {
         }}
         page={page}
         onChange={handleChange}
+        //La paginación no funciona, probar otro componente o hacerla a mano
       />
     </>
   );

@@ -50,36 +50,32 @@ export const fetchGetImages = createAsyncThunk(
 
 const setLocalStorageFunc = (value) => {
   localStorage.setItem("image", JSON.stringify(value));
-  
 };
 
-// const ejemplo = JSON.parse(localStorage.getItem("image"));
-// console.log(ejemplo);
+const getLocalStorageFunc = () => {
+  const getImgsFromLocal = localStorage.getItem("image");
+  return getImgsFromLocal ? JSON.parse(getImgsFromLocal) : [];
+};
 
 const initialState = {
   images: [],
-  favImages: [],
+  favImages: getLocalStorageFunc(),
   status: "",
 };
-
-/**
- Hay que hacer una función de comparativa para los datos del Local.
- Si el Local tiene imgs la retornará y sino retornará un [].
- Entonces, depsués de hacer eso, favImages tendrá como estado inicial, esa función.
- Y por último en el addImage habrá que poner que el state.favImages = action.payload.
- */
 
 export const imagesSlice = createSlice({
   name: "image",
   initialState,
   reducers: {
-    // Y los datos que entran siempre son action.payload
     addImage: (state, action) => {
-      setLocalStorageFunc(action.payload);
-      state.favImages = [...state.favImages,action.payload];
-      console.log(state.favImages);
+      state.favImages = [...state.favImages, action.payload];
+      setLocalStorageFunc(state.favImages);
+
     },
-    deleteImage: () => {},
+    deleteImage: (state, action) => {
+        state.favImages = state.favImages.filter(img => img.id !== action.id);
+        setLocalStorageFunc(state.favImages)
+    },
     modifyDescriptionImage: () => {},
   },
   extraReducers: (builder) => {
