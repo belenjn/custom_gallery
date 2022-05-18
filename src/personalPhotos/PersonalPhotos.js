@@ -14,6 +14,7 @@ import { deleteImage } from "../features/imagesSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import InfoIcon from "@mui/icons-material/Info";
 import DownloadIcon from '@mui/icons-material/Download';
+import CloseIcon from '@mui/icons-material/Close';
 import { saveAs } from 'file-saver';
 
 export const PersonalPhotos = () => {
@@ -26,6 +27,14 @@ export const PersonalPhotos = () => {
 
   const handleClickModal = () => {
     setModal(!modal);
+  };
+
+  const handleClickCloseModal = () => {
+    setModal(!modal);
+  };
+
+  const handleClickCloseModalChildren = () => {
+    setEdit(!edit)
   };
 
   const handleClickEditDescription = () => {
@@ -113,7 +122,7 @@ export const PersonalPhotos = () => {
               />
             </Box>
 
-            <Modal open={modal} onClose={handleClickModal}>
+            <Modal open={modal} onClose={handleClickCloseModal}>
               <Box
                 sx={{
                   position: "absolute",
@@ -127,6 +136,15 @@ export const PersonalPhotos = () => {
                   borderRadius: "10px",
                 }}
               >
+              <CloseIcon sx={{
+                      color: "#4527a0",
+                      marginLeft: "95%",
+                      cursor: "pointer"
+
+              }}
+              onClick={() => handleClickCloseModal()}
+              />
+
                <Typography 
                variant="h3"
                sx={{
@@ -246,7 +264,7 @@ export const PersonalPhotos = () => {
             <Modal
             
               open={edit}
-              onClose={handleClickEditDescription}
+              onClose={handleClickCloseModalChildren}
             >
               <Box
                 sx={{
@@ -264,6 +282,14 @@ export const PersonalPhotos = () => {
                   // border: "1px solid black",
                 }}
               >
+                 <CloseIcon sx={{
+                      color: "#4527a0",
+                      marginLeft: "95%",
+                      cursor: "pointer"
+
+              }}
+              onClick={() => handleClickCloseModalChildren()}
+              />
                 <Box
                   sx={{
                     display: "flex",
