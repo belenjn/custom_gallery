@@ -2,7 +2,7 @@ import {
   Grid,
   IconButton,
   ListItem,
-  Pagination,
+  // Pagination,
   TextField,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -15,7 +15,7 @@ import { addImage, fetchGetImages } from "../features/imagesSlice";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
 
 
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ export const Searcher = () => {
   const { images } = useSelector((state) => state.imagesStore);
 
   useEffect(() => {
-    dispatch(fetchGetImages(img, page));
-  }, [dispatch, img, page]);
+    dispatch(fetchGetImages(img));
+  }, [dispatch, img]); // con paginación debo añadir page en el array.
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,10 +36,10 @@ export const Searcher = () => {
 
   };
 
-  const handleChange = (event, value) => {
-    setPage(value);
-    console.log(value);
-  };
+  // const handleChange = (event, value) => {
+  //   setPage(value);
+  //   console.log(value);
+  // };
 
   return (
     <>
@@ -143,7 +143,7 @@ export const Searcher = () => {
           ))}
         </Grid>
       </Box>
-      <Pagination
+      {/* <Pagination
         count={10}
         variant="outlined"
         color="secondary"
@@ -156,7 +156,7 @@ export const Searcher = () => {
         page={page}
         onChange={handleChange}
         //La paginación no funciona, probar otro componente o hacerla a mano
-      />
+      /> */}
     </>
   );
 };
