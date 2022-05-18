@@ -24,10 +24,6 @@ export const PersonalPhotos = () => {
 
   const dispatch = useDispatch();
 
-  const handleClickDelete = (photo) => {
-    dispatch(deleteImage(photo));
-  };
-
   const handleClickModal = () => {
     setModal(!modal);
   };
@@ -96,7 +92,7 @@ export const PersonalPhotos = () => {
                     transition: "0.2s ease",
                   },
                 }}
-                onClick={() => handleClickDelete(item)}
+                onClick={() => dispatch(deleteImage(item))}
               />
 
               <InfoIcon

@@ -73,8 +73,9 @@ export const imagesSlice = createSlice({
 
     },
     deleteImage: (state, action) => {
-        state.favImages = state.favImages.filter(img => img.id !== action.id);
+        state.favImages = state.favImages.filter(item => item.id !== action.payload.id);
         setLocalStorageFunc(state.favImages)
+        console.log(state.favImages)
     },
     modifyDescriptionImage: () => {},
   },

@@ -1,4 +1,5 @@
 import {
+  CircularProgress,
   Grid,
   IconButton,
   ListItem,
@@ -11,10 +12,12 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
+
 // import GradeIcon from "@mui/icons-material/Grade";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
+  const [isSearching, setIsSearching] = useState(false);
   // const [page, setPage] = useState(1);
 
 
@@ -63,7 +66,9 @@ export const Searcher = () => {
             <TextField
               label="Search something"
               variant="outlined"
-              onChange={(e) => setImg(e.target.value)}
+              onChange={(e) => setTimeout(() => {
+                setImg(e.target.value)
+              }, 1500)}
             />
           </form>
           <IconButton type="submit" aria-label="search">
@@ -82,6 +87,9 @@ export const Searcher = () => {
             marginTop: "100px",
           }}
         >
+
+          {isSearching && <CircularProgress color="secondary" />}
+
           {images.map((item) => (
             <ListItem
               key={item.id}
