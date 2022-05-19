@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { fetchImg } from "./imagesAPI";
+
 
 /*
 1. Para trabajar con el state, nunca hay que mutarlo hay metodos como push que mutan el estado inicial 
@@ -77,7 +78,14 @@ export const imagesSlice = createSlice({
         setLocalStorageFunc(state.favImages)
         console.log(state.favImages)
     },
-    modifyDescriptionImage: () => {},
+    modifyDescriptionImage: (state, action) => {
+        const statePhoto = [...state.favImages];
+        const descriptionToEdit = statePhoto.find(photo => photo.id === action.payload.id);
+        descriptionToEdit.description = action.payload.descriptionPhoto;
+        state.favImages = statePhoto;
+        setLocalStorageFunc(state.favImages)
+        
+    },
   },
   extraReducers: (builder) => {
     builder

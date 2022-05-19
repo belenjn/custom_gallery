@@ -1,35 +1,43 @@
 import {
   Button,
   Grid,
+  IconButton,
   ListItem,
   Modal,
   TextareaAutosize,
+  TextField,
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
-import { deleteImage } from "../features/imagesSlice";
+import { deleteImage, modifyDescriptionImage } from "../features/imagesSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import InfoIcon from "@mui/icons-material/Info";
 import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import { saveAs } from 'file-saver';
+import SearchIcon from "@mui/icons-material/Search";
+
+
 
 export const PersonalPhotos = () => {
   const [modal, setModal] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [descriptionPhoto, setDescriptionPhoto] = useState('');
+  const [photos, setPhotos] = useState('');
 
   const { favImages } = useSelector((state) => state.imagesStore);
 
+
   const dispatch = useDispatch();
 
-  const handleClickModal = () => {
+  const handleClickModalInfo = () => {
     setModal(!modal);
   };
 
-  const handleClickCloseModal = () => {
+  const handleClickCloseModalInfo = () => {
     setModal(!modal);
   };
 
@@ -37,20 +45,47 @@ export const PersonalPhotos = () => {
     setEdit(!edit)
   };
 
-  const handleClickEditDescription = () => {
+  const handleClickEditDescription = (oldDescrption) => {
     setEdit(!edit);
-    setModal(false);
+    setDescriptionPhoto(oldDescrption)
 
   };
 
-  const handleClickSaveDescription = () => {
-    setEdit(!edit);
-    setModal(false);
-  };
+  const handleClickSaveDescription = (id) => {
+    dispatch(modifyDescriptionImage({id, descriptionPhoto}));
+  }
 
+  const handleChangeDescription = (e) => {
+    setDescriptionPhoto(e.target.value);
+    console.log(e.target.value)
+   }
 
   return (
+    <>
+     <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            width: "100%",
+            marginTop: "100px",
+          }}
+        >
+          <form>
+            <TextField
+              label="Search with your description"
+              variant="outlined"
+              onChange={(e) => setTimeout(() => {
+                // setImg(e.target.value)
+              }, 1500)}
+            />
+          </form>
+          <IconButton type="submit" aria-label="search">
+            <SearchIcon sx={{ fill: "#4527a0", marginTop: "10px" }} />
+          </IconButton>
+        </Box>
     <Box>
+      
       <Grid
         container
         columns={{ xs: 3, sm: 8, md: 4 }}
@@ -118,11 +153,11 @@ export const PersonalPhotos = () => {
                     transition: "0.2s ease",
                   },
                 }}
-                onClick={() => handleClickModal()}
+                onClick={() => handleClickModalInfo()}
               />
             </Box>
 
-            <Modal open={modal} onClose={handleClickCloseModal}>
+            <Modal open={modal} onClose={handleClickCloseModalInfo}>
               <Box
                 sx={{
                   position: "absolute",
@@ -142,7 +177,7 @@ export const PersonalPhotos = () => {
                       cursor: "pointer"
 
               }}
-              onClick={() => handleClickCloseModal()}
+              onClick={() => handleClickCloseModalInfo()}
               />
 
                <Typography 
@@ -225,7 +260,7 @@ export const PersonalPhotos = () => {
                         transition: "0.2s ease",
                       },
                     }}
-                    onClick={() => handleClickEditDescription()}
+                    onClick={() => handleClickEditDescription(item.description)}
                   />
                   <br/>
                   <Typography
@@ -310,6 +345,8 @@ export const PersonalPhotos = () => {
                   <TextareaAutosize
                     aria-label="minimum height"
                     minRows={5}
+                    value={descriptionPhoto}
+                    onChange={(e) => handleChangeDescription(e)}
                   ></TextareaAutosize>
                   <Button
                     sx={{
@@ -321,7 +358,7 @@ export const PersonalPhotos = () => {
                         transition: "0.2s ease",
                       },
                     }}
-                    onClick={() => handleClickSaveDescription()}
+                    onClick={() => handleClickSaveDescription(item.id)}
                   >
                     Click to save
                   </Button>
@@ -332,5 +369,6 @@ export const PersonalPhotos = () => {
         ))}
       </Grid>
     </Box>
+    </>
   );
 };
