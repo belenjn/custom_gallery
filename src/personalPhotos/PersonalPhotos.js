@@ -26,7 +26,7 @@ export const PersonalPhotos = () => {
   const [modal, setModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const [descriptionPhoto, setDescriptionPhoto] = useState('');
-  const [photos, setPhotos] = useState('');
+
 
   const { favImages } = useSelector((state) => state.imagesStore);
 
@@ -45,9 +45,9 @@ export const PersonalPhotos = () => {
     setEdit(!edit)
   };
 
-  const handleClickEditDescription = (oldDescrption) => {
+  const handleClickEditDescription = (oldDescription) => {
     setEdit(!edit);
-    setDescriptionPhoto(oldDescrption)
+    setDescriptionPhoto(oldDescription)
 
   };
 
@@ -57,7 +57,6 @@ export const PersonalPhotos = () => {
 
   const handleChangeDescription = (e) => {
     setDescriptionPhoto(e.target.value);
-    console.log(e.target.value)
    }
 
   return (
