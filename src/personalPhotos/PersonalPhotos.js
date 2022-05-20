@@ -1,31 +1,56 @@
-import { Grid, IconButton, ListItem, TextField } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  IconButton,
+  InputLabel,
+  ListItem,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
 import { deleteImage } from "../features/imagesSlice";
-// import EditIcon from "@mui/icons-material/Edit";
 import InfoIcon from "@mui/icons-material/Info";
-// import DownloadIcon from "@mui/icons-material/Download";
-// import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { MainModal } from "../modal/MainModal";
 
 export const PersonalPhotos = () => {
+  const { favImages } = useSelector((state) => state.imagesStore);
+
   const [openModal, setOpenModal] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(null);
-
-  const { favImages } = useSelector((state) => state.imagesStore);
+  const [search, setSearch] = useState("");
 
   const dispatch = useDispatch();
 
   const handleClickModalInfo = (item, index) => {
     setOpenModal(!openModal);
     setActiveImage(item);
-    setActiveImageIndex(index)
+    setActiveImageIndex(index);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch("");
+  };
+
+  const imagesFiltered = search.length
+    ? favImages.filter((photo) =>
+        JSON.stringify(photo.description)
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase())
+      )
+    : favImages;
+
+ 
+
+  const handleSearchDescription = (e) => {
+    setSearch(e.currentTarget.value);
+  };
   return (
     <>
       <Box
@@ -37,21 +62,62 @@ export const PersonalPhotos = () => {
           marginTop: "100px",
         }}
       >
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextField
             label="Search with your description"
             variant="outlined"
-            onChange={(e) =>
-              setTimeout(() => {
-                // setImg(e.target.value)
-              }, 1500)
-            }
+            sx={{
+              xs: {
+                width: 300,
+              },
+              lg: {
+                width: 500,
+              },
+            }}
+            onChange={handleSearchDescription}
           />
         </form>
         <IconButton type="submit" aria-label="search">
-          <SearchIcon sx={{ fill: "#4527a0", marginTop: "10px" }} />
+          <SearchIcon
+            sx={{ fill: "#4527a0", marginTop: "10px", fontSize: 40 }}
+          />
         </IconButton>
+
+        <FormControl
+          sx={{
+            xs: {
+              width: 300,
+            },
+            lg: {
+              width: 500,
+            },
+          }}
+        >
+          <InputLabel id="demo-simple-select-label"></InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            // value={age}
+            label="Sort"
+            // onChange={handleChange}
+          >
+            <MenuItem value={favImages.likes}>Likes</MenuItem>
+            <MenuItem value={favImages.height}>Height</MenuItem>
+            <MenuItem value={favImages.width}>Width</MenuItem>
+            <MenuItem value={favImages.created_at}>Date of import</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
+      <Box
+        display="flex"
+        autoWidth={true}
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          marginTop: "50px",
+        }}
+      ></Box>
+
       <Box>
         <Grid
           container
@@ -62,7 +128,7 @@ export const PersonalPhotos = () => {
             marginTop: "100px",
           }}
         >
-          {favImages.map((item, index) => (
+          {imagesFiltered.map((item, index) => (
             <ListItem
               key={item.id}
               sx={{
@@ -123,16 +189,15 @@ export const PersonalPhotos = () => {
                   onClick={() => handleClickModalInfo(item, index)}
                 />
               </Box>
-              
             </ListItem>
           ))}
         </Grid>
       </Box>
       <MainModal
-                item={favImages[activeImageIndex]}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-              />
+        item={favImages[activeImageIndex]}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </>
   );
 };
