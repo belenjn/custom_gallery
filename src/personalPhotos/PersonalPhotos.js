@@ -1,7 +1,6 @@
 import {
   FormControl,
   Grid,
-  IconButton,
   InputLabel,
   ListItem,
   MenuItem,
@@ -14,7 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
 import { deleteImage } from "../features/imagesSlice";
 import InfoIcon from "@mui/icons-material/Info";
-import SearchIcon from "@mui/icons-material/Search";
 import { MainModal } from "../modal/MainModal";
 
 export const PersonalPhotos = () => {
@@ -47,7 +45,6 @@ export const PersonalPhotos = () => {
     : favImages;
 
  
-
   const handleSearchDescription = (e) => {
     setSearch(e.currentTarget.value);
   };
