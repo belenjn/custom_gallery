@@ -64,7 +64,7 @@ export const PersonalPhotos = () => {
       >
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Search with your description"
+            label="Search by description"
             variant="outlined"
             sx={{
               xs: {
@@ -78,9 +78,7 @@ export const PersonalPhotos = () => {
           />
         </form>
         <IconButton type="submit" aria-label="search">
-          <SearchIcon
-            sx={{ fill: "#4527a0", marginTop: "10px", fontSize: 40 }}
-          />
+   
         </IconButton>
 
         <FormControl
