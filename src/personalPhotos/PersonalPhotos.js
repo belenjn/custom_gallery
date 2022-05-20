@@ -77,9 +77,7 @@ export const PersonalPhotos = () => {
             onChange={handleSearchDescription}
           />
         </form>
-        <IconButton type="submit" aria-label="search">
-   
-        </IconButton>
+       
 
         <FormControl
           sx={{
