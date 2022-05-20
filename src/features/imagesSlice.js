@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchImg } from "./imagesAPI";
 
-
 /*
 1. Para trabajar con el state, nunca hay que mutarlo hay metodos como push que mutan el estado inicial 
 asi que hay que tener en cuenta estos factores. Sobre todo en Array y Objetos , que se guardan por referencia.
@@ -71,20 +70,25 @@ export const imagesSlice = createSlice({
     addImage: (state, action) => {
       state.favImages = [...state.favImages, action.payload];
       setLocalStorageFunc(state.favImages);
-
     },
     deleteImage: (state, action) => {
-        state.favImages = state.favImages.filter(item => item.id !== action.payload.id);
-        setLocalStorageFunc(state.favImages)
-        console.log(state.favImages)
+      state.favImages = state.favImages.filter(
+        (item) => item.id !== action.payload.id
+      );
+      setLocalStorageFunc(state.favImages);
     },
     modifyDescriptionImage: (state, action) => {
-        const statePhoto = [...state.favImages];
-        const descriptionToEdit = statePhoto.find(photo => photo.id === action.payload.id);
-        descriptionToEdit.description = action.payload.descriptionPhoto;
-        state.favImages = statePhoto;
-        setLocalStorageFunc(state.favImages)
-        
+      const statePhoto = [...state.favImages];
+      const editIndex = statePhoto.findIndex(
+        (photo) => photo.id === action.payload.id
+      );
+      const newPhoto = {
+        ...statePhoto[editIndex],
+        description: action.payload.descriptionPhoto,
+      };
+      statePhoto[editIndex] = newPhoto;
+      state.favImages = statePhoto;
+      setLocalStorageFunc(state.favImages);
     },
   },
   extraReducers: (builder) => {

@@ -1,373 +1,138 @@
-import {
-  Button,
-  Grid,
-  IconButton,
-  ListItem,
-  Modal,
-  TextareaAutosize,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Grid, IconButton, ListItem, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
-import { deleteImage, modifyDescriptionImage } from "../features/imagesSlice";
-import EditIcon from "@mui/icons-material/Edit";
+import { deleteImage } from "../features/imagesSlice";
+// import EditIcon from "@mui/icons-material/Edit";
 import InfoIcon from "@mui/icons-material/Info";
-import DownloadIcon from '@mui/icons-material/Download';
-import CloseIcon from '@mui/icons-material/Close';
-import { saveAs } from 'file-saver';
+// import DownloadIcon from "@mui/icons-material/Download";
+// import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
-
-
+import { MainModal } from "../modal/MainModal";
 
 export const PersonalPhotos = () => {
-  const [modal, setModal] = useState(false);
-  const [edit, setEdit] = useState(false);
-  const [descriptionPhoto, setDescriptionPhoto] = useState('');
-
+  const [openModal, setOpenModal] = useState(false);
+  const [activeImage, setActiveImage] = useState(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(null);
 
   const { favImages } = useSelector((state) => state.imagesStore);
 
-
   const dispatch = useDispatch();
 
-  const handleClickModalInfo = () => {
-    setModal(!modal);
+  const handleClickModalInfo = (item, index) => {
+    setOpenModal(!openModal);
+    setActiveImage(item);
+    setActiveImageIndex(index)
   };
-
-  const handleClickCloseModalInfo = () => {
-    setModal(!modal);
-  };
-
-  const handleClickCloseModalChildren = () => {
-    setEdit(!edit)
-  };
-
-  const handleClickEditDescription = (oldDescription) => {
-    setEdit(!edit);
-    setDescriptionPhoto(oldDescription)
-
-  };
-
-  const handleClickSaveDescription = (id) => {
-    dispatch(modifyDescriptionImage({id, descriptionPhoto}));
-  }
-
-  const handleChangeDescription = (e) => {
-    setDescriptionPhoto(e.target.value);
-   }
 
   return (
     <>
-     <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            width: "100%",
-            marginTop: "100px",
-          }}
-        >
-          <form>
-            <TextField
-              label="Search with your description"
-              variant="outlined"
-              onChange={(e) => setTimeout(() => {
-                // setImg(e.target.value)
-              }, 1500)}
-            />
-          </form>
-          <IconButton type="submit" aria-label="search">
-            <SearchIcon sx={{ fill: "#4527a0", marginTop: "10px" }} />
-          </IconButton>
-        </Box>
-    <Box>
-      
-      <Grid
-        container
-        columns={{ xs: 3, sm: 8, md: 4 }}
-        direction="row"
+      <Box
+        display="flex"
         justifyContent="center"
+        alignItems="center"
         sx={{
+          width: "100%",
           marginTop: "100px",
         }}
       >
-        {favImages.map((item) => (
-          <ListItem
-            key={item.id}
-            sx={{
-              backgroundImage: `url(${item.urls.small})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              borderRadius: "10px",
-              marginBottom: "20px",
-              marginLeft: "1%",
-              marginRight: "1%",
-              height: "350px",
-              width: "240px",
-            }}
-          >
-            <Box
+        <form>
+          <TextField
+            label="Search with your description"
+            variant="outlined"
+            onChange={(e) =>
+              setTimeout(() => {
+                // setImg(e.target.value)
+              }, 1500)
+            }
+          />
+        </form>
+        <IconButton type="submit" aria-label="search">
+          <SearchIcon sx={{ fill: "#4527a0", marginTop: "10px" }} />
+        </IconButton>
+      </Box>
+      <Box>
+        <Grid
+          container
+          columns={{ xs: 3, sm: 8, md: 4 }}
+          direction="row"
+          justifyContent="center"
+          sx={{
+            marginTop: "100px",
+          }}
+        >
+          {favImages.map((item, index) => (
+            <ListItem
+              key={item.id}
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
+                backgroundImage: `url(${item.urls.small})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "10px",
+                marginBottom: "20px",
+                marginLeft: "1%",
+                marginRight: "1%",
+                height: "350px",
                 width: "240px",
-                height: "100%",
-                margin: "auto",
               }}
-            >
-              <DeleteIcon
-                sx={{
-                  backgroundColor: "#dd2c00",
-                  borderRadius: "100%",
-                  color: "white",
-                  fontSize: "22px",
-                  padding: "5px",
-                  display: "block",
-                  marginBottom: "300px",
-                  ":hover": {
-                    cursor: "pointer",
-                    backgroundColor: "#bf360c",
-                    fontSize: "25px",
-                    transition: "0.2s ease",
-                  },
-                }}
-                onClick={() => dispatch(deleteImage(item))}
-              />
-
-              <InfoIcon
-                sx={{
-                  // backgroundColor: "#448aff",
-                  borderRadius: "100%",
-                  color: "#448aff",
-                  fontSize: "35px",
-                  display: "block",
-                  ":hover": {
-                    cursor: "pointer",
-                    color: "#2962ff",
-                    fontSize: "38px",
-                    transition: "0.2s ease",
-                  },
-                }}
-                onClick={() => handleClickModalInfo()}
-              />
-            </Box>
-
-            <Modal open={modal} onClose={handleClickCloseModalInfo}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 520,
-                  backgroundColor: "#fff",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: "10px",
-                }}
-              >
-              <CloseIcon sx={{
-                      color: "#4527a0",
-                      marginLeft: "95%",
-                      cursor: "pointer"
-
-              }}
-              onClick={() => handleClickCloseModalInfo()}
-              />
-
-               <Typography 
-               variant="h3"
-               sx={{
-                 color: "#4527a0",
-                 textDecoration: "underline"
-            
-               }}
-               >
-               Information:
-               </Typography>
-                <Typography sx={{ mt: 2, lineHeight: 2.5 }}>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Width:
-                  </Typography>{" "}
-                  {item.width}
-                  <br/>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Height:
-                  </Typography>{" "}
-                  {item.height}
-                  <br/>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Likes:
-                  </Typography>{" "}
-                  {item.likes}
-                  <br/>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Date added:
-                  </Typography>{" "}
-                  {item.created_at}
-                  <br/>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Description:
-                  </Typography>{" "}
-                  {item.description}
-                  
-                  <EditIcon
-                    sx={{
-                      backgroundColor: "#4527a0",
-                      color: "white",
-                      borderRadius: "20px",
-                      padding: "5px",
-                      fontSize: "15px",
-                      cursor: "pointer",
-                      marginLeft: "10px",
-                      ":hover": {
-                        backgroundColor: "#b388ff",
-                        transition: "0.2s ease",
-                      },
-                    }}
-                    onClick={() => handleClickEditDescription(item.description)}
-                  />
-                  <br/>
-                  <Typography
-                    variant="p"
-                    sx={{
-                      color: "#4527a0",
-                      fontWeight: 500,
-                    }}
-                  >
-            
-                    <br/>
-                    You can download it with one click: 
-                  </Typography>
-                    <br/>
-                    <DownloadIcon
-                    sx={{
-                      color: "white",
-                      backgroundColor: "#4527a0",
-                      borderRadius: "20px",
-                      padding: "5px",
-                      fontSize: "20px",
-                      cursor: "pointer",
-                      marginLeft: "10px",
-                      ":hover": {
-                        backgroundColor: "#b388ff",
-                        transition: "0.2s ease",
-                      },
-                      
-                    }}
-                    onClick={() => saveAs(item.urls.full, 'image.jpg')}
-                    />
-                </Typography>
-              </Box>
-            </Modal>
-
-            <Modal
-            
-              open={edit}
-              onClose={handleClickCloseModalChildren}
             >
               <Box
                 sx={{
-
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 520,
-                  height: 400,
-                  backgroundColor: "white",
-                  boxShadow: 24,
-                  p: 4,
-                  borderRadius: "10px"
-                  // border: "1px solid black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "240px",
+                  height: "100%",
+                  margin: "auto",
                 }}
               >
-                 <CloseIcon sx={{
-                      color: "#4527a0",
-                      marginLeft: "95%",
-                      cursor: "pointer"
-
-              }}
-              onClick={() => handleClickCloseModalChildren()}
-              />
-                <Box
+                <DeleteIcon
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
+                    backgroundColor: "#dd2c00",
+                    borderRadius: "100%",
+                    color: "white",
+                    fontSize: "22px",
+                    padding: "5px",
+                    display: "block",
+                    marginBottom: "300px",
+                    ":hover": {
+                      cursor: "pointer",
+                      backgroundColor: "#bf360c",
+                      fontSize: "25px",
+                      transition: "0.2s ease",
+                    },
                   }}
-                >
-                  <Typography
-                    variant="h5"
-                    textAlign="center"
-                    color="#4527a0"
-                    sx={{
-                      marginBottom: "60px",
-                    }}
-                  >
-                    Edit the description:{" "}
-                  </Typography>
-                  <TextareaAutosize
-                    aria-label="minimum height"
-                    minRows={5}
-                    value={descriptionPhoto}
-                    onChange={(e) => handleChangeDescription(e)}
-                  ></TextareaAutosize>
-                  <Button
-                    sx={{
-                      backgroundColor: "#4527a0",
-                      color: "white",
-                      marginTop: "20px",
-                      ":hover": {
-                        backgroundColor: "#b388ff",
-                        transition: "0.2s ease",
-                      },
-                    }}
-                    onClick={() => handleClickSaveDescription(item.id)}
-                  >
-                    Click to save
-                  </Button>
-                </Box>
+                  onClick={() => dispatch(deleteImage(item))}
+                />
+
+                <InfoIcon
+                  sx={{
+                    // backgroundColor: "#448aff",
+                    borderRadius: "100%",
+                    color: "#448aff",
+                    fontSize: "35px",
+                    display: "block",
+                    ":hover": {
+                      cursor: "pointer",
+                      color: "#2962ff",
+                      fontSize: "38px",
+                      transition: "0.2s ease",
+                    },
+                  }}
+                  onClick={() => handleClickModalInfo(item, index)}
+                />
               </Box>
-            </Modal>
-          </ListItem>
-        ))}
-      </Grid>
-    </Box>
+              
+            </ListItem>
+          ))}
+        </Grid>
+      </Box>
+      <MainModal
+                item={favImages[activeImageIndex]}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+              />
     </>
   );
 };

@@ -35,26 +35,7 @@ export const NavBar = () => {
             </Button>
           </Typography>
           <Typography>
-            <Button
-              component={NavLink}
-              to="/myPhotos"
-              sx={{fontSize: {
-                xs: "10px",
-                sm: "10px",
-                md: "15px",
-                lg: "15px"
-            },
-                color: "#fff",
-                ":hover": {
-                  bgcolor: "#b388ff",
-                  color: "#fff",
-                },
-              }}
-              variant="text"
-            >
-              My photos
-            </Button>
-            <Button
+          <Button
               component={NavLink}
               to="/search"
               sx={{
@@ -74,6 +55,26 @@ export const NavBar = () => {
             >
               Search
             </Button>
+            <Button
+              component={NavLink}
+              to="/myPhotos"
+              sx={{fontSize: {
+                xs: "10px",
+                sm: "10px",
+                md: "15px",
+                lg: "15px"
+            },
+                color: "#fff",
+                ":hover": {
+                  bgcolor: "#b388ff",
+                  color: "#fff",
+                },
+              }}
+              variant="text"
+            >
+              My photos
+            </Button>
+            
           </Typography>
         </Toolbar>
       </AppBar>
