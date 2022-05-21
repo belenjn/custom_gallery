@@ -36,13 +36,20 @@ export const PersonalPhotos = () => {
     setSearch("");
   };
 
-  const imagesFiltered = search.length
-    ? favImages.filter((photo) =>
-        JSON.stringify(photo.description)
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase())
-      )
-    : favImages;
+  
+  function filterImage() {
+    if(search.length) {
+     const newArray = favImages.filter((photo) => {
+       return JSON.stringify(photo.description).toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        
+      })
+      return newArray
+    } else {
+      return favImages
+    }
+  }
+
+  const imagesFiltered = filterImage()
 
  
   const handleSearchDescription = (e) => {
