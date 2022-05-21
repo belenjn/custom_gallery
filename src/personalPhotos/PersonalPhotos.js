@@ -36,22 +36,35 @@ export const PersonalPhotos = () => {
     setSearch("");
   };
 
-  
   function filterImage() {
-    if(search.length) {
-     const newArray = favImages.filter((photo) => {
-       return JSON.stringify(photo.description).toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        
-      })
-      return newArray
+    if (search.length) {
+      const newArray = favImages.filter((photo) => {
+        return JSON.stringify(photo.description)
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase());
+      });
+      return newArray;
     } else {
-      return favImages
+      return favImages;
     }
   }
 
-  const imagesFiltered = filterImage()
+  const imagesFiltered = filterImage();
 
- 
+  function likes() {
+    let newLikes = [...favImages]
+    const result = newLikes.sort((a, b) => {
+      if (a.likes > b.likes) {
+        return -1;
+      }
+      if (a.likes < b.likes) {
+        return 1;
+      }
+      return 0;
+    });
+    return console.log(result)
+  }
+
   const handleSearchDescription = (e) => {
     setSearch(e.currentTarget.value);
   };
@@ -81,7 +94,6 @@ export const PersonalPhotos = () => {
             onChange={handleSearchDescription}
           />
         </form>
-       
 
         <FormControl
           sx={{
@@ -101,7 +113,9 @@ export const PersonalPhotos = () => {
             label="Sort"
             // onChange={handleChange}
           >
-            <MenuItem value={favImages.likes}>Likes</MenuItem>
+            <MenuItem value={favImages.likes} onClick={likes}>
+              Likes
+            </MenuItem>
             <MenuItem value={favImages.height}>Height</MenuItem>
             <MenuItem value={favImages.width}>Width</MenuItem>
             <MenuItem value={favImages.created_at}>Date of import</MenuItem>

@@ -26,7 +26,11 @@ export const MainModal = ({item, openModal, setOpenModal}) => {
 
   return (
     <>
-      <Modal open={openModal} onClose={handleClickCloseModalInfo}>
+      <Modal 
+      open={openModal} 
+      onClose={handleClickCloseModalInfo}
+     
+      >
         <Box
           sx={{
             position: "absolute",
