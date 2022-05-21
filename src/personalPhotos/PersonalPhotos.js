@@ -22,6 +22,8 @@ export const PersonalPhotos = () => {
   const [activeImage, setActiveImage] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(null);
   const [search, setSearch] = useState("");
+  const [likesFilter, setLikesFilter] = useState(false)
+ 
 
   const dispatch = useDispatch();
 
@@ -36,6 +38,7 @@ export const PersonalPhotos = () => {
     setSearch("");
   };
 
+
   function filterImage() {
     if (search.length) {
       const newArray = favImages.filter((photo) => {
@@ -45,14 +48,13 @@ export const PersonalPhotos = () => {
       });
       return newArray;
     } else {
-      return favImages;
+      return favImages
     }
   }
 
-  const imagesFiltered = filterImage();
-
-  function likes() {
-    let newLikes = [...favImages]
+  
+  function likesPhotos() {
+    let newLikes = [...favImages];
     const result = newLikes.sort((a, b) => {
       if (a.likes > b.likes) {
         return -1;
@@ -62,8 +64,40 @@ export const PersonalPhotos = () => {
       }
       return 0;
     });
-    return console.log(result)
+    return result;
   }
+
+  function widthPhotos() {
+    let newWidth = [...favImages];
+    const result = newWidth.sort((a, b) => {
+      if (a.width > b.width) {
+        return -1;
+      }
+      if (a.width < b.width) {
+        return 1;
+      }
+      return 0;
+    });
+    return result;
+  }
+
+  function heightPhotos() {
+    let newHeight = [...favImages];
+    const result = newHeight.sort((a, b) => {
+      if (a.height > b.height) {
+        return -1;
+      }
+      if (a.height < b.height) {
+        return 1;
+      }
+      return 0;
+    });
+    return result;
+  }
+
+  const imagesFiltered = filterImage();
+
+
 
   const handleSearchDescription = (e) => {
     setSearch(e.currentTarget.value);
@@ -113,12 +147,17 @@ export const PersonalPhotos = () => {
             label="Sort"
             // onChange={handleChange}
           >
-            <MenuItem value={favImages.likes} onClick={likes}>
+            <MenuItem onClick={() => {
+              likesPhotos();
+            }}>
               Likes
             </MenuItem>
-            <MenuItem value={favImages.height}>Height</MenuItem>
-            <MenuItem value={favImages.width}>Width</MenuItem>
-            <MenuItem value={favImages.created_at}>Date of import</MenuItem>
+            <MenuItem onClick={heightPhotos}>
+              Height
+            </MenuItem>
+            <MenuItem nClick={widthPhotos}>
+              Width
+            </MenuItem>
           </Select>
         </FormControl>
       </Box>

@@ -29,6 +29,9 @@ export const MainModal = ({item, openModal, setOpenModal}) => {
       <Modal 
       open={openModal} 
       onClose={handleClickCloseModalInfo}
+      sx={{
+        backgroundColor: "#0000070"
+      }}
      
       >
         <Box
