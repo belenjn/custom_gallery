@@ -1,10 +1,13 @@
 import {
+  Alert,
   CircularProgress,
   Grid,
   IconButton,
   ListItem,
+  Modal,
   // Pagination,
   TextField,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
@@ -12,14 +15,15 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
+import { Message } from "./Message";
 
 // import GradeIcon from "@mui/icons-material/Grade";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
   const [isSearching, setIsSearching] = useState(false);
+  const [messageAlert, setMessageAlert] = useState(false);
   // const [page, setPage] = useState(1);
-
 
   const dispatch = useDispatch();
 
@@ -36,7 +40,11 @@ export const Searcher = () => {
 
   const handleClick = (photo) => {
     dispatch(addImage(photo));
+    setMessageAlert(true);
+  };
 
+  const handleClose = () => {
+    setMessageAlert(false);
   };
 
   // const handleChange = (event, value) => {
@@ -66,9 +74,11 @@ export const Searcher = () => {
             <TextField
               label="Search something"
               variant="outlined"
-              onChange={(e) => setTimeout(() => {
-                setImg(e.target.value)
-              }, 1500)}
+              onChange={(e) =>
+                setTimeout(() => {
+                  setImg(e.target.value);
+                }, 1500)
+              }
             />
           </form>
           <IconButton type="submit" aria-label="search">
@@ -87,7 +97,6 @@ export const Searcher = () => {
             marginTop: "100px",
           }}
         >
-
           {isSearching && <CircularProgress color="secondary" />}
 
           {images.map((item) => (
@@ -106,28 +115,68 @@ export const Searcher = () => {
                 width: "240px",
               }}
             >
-         
-                <AddIcon
+              <AddIcon
+                sx={{
+                  backgroundColor: "#4527a0",
+                  borderRadius: "100%",
+                  color: "white",
+                  fontSize: "22px",
+                  padding: "5px",
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: 0,
+                  marginBottom: "300px",
+                  ":hover": {
+                    cursor: "pointer",
+                    backgroundColor: "#b388ff",
+                    fontSize: "25px",
+                    transition: "0.2s ease",
+                  },
+                }}
+                onClick={() => handleClick(item)}
+              />
+
+              {messageAlert && (
+                <Modal open={handleClick} onClose={handleClose}>
+                <Box
                   sx={{
-                    backgroundColor: "#4527a0",
-                    borderRadius: "100%",
-                    color: "white",
-                    fontSize: "22px",
-                    padding: "5px",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: 0,
-                    marginBottom: "300px",
-                    ":hover": {
-                      cursor: "pointer",
-                      backgroundColor: "#b388ff",
-                      fontSize: "25px",
-                      transition: "0.2s ease",
-                    },
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 300,
+                    height: 100,
+                    backgroundColor: "white",
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: "10px",
                   }}
-                  onClick={() => handleClick(item)}
-                />
-            
+                >
+                
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      textAlign="center"
+                      color="#4527a0"
+                      sx={{
+                        marginBottom: "60px",
+                      }}
+                    >
+                      Saved image - Check it out!{" "}
+                    </Typography>
+                
+                  
+                  </Box>
+                </Box>
+              </Modal>
+               
+              )}
 
               {/* {show && (
                 <GradeIcon
