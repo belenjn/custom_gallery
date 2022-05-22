@@ -1,13 +1,10 @@
 import {
-  Alert,
   CircularProgress,
   Grid,
   IconButton,
   ListItem,
-  Modal,
   // Pagination,
   TextField,
-  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
@@ -15,15 +12,10 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
-import { Message } from "./Message";
-
-// import GradeIcon from "@mui/icons-material/Grade";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
   const [isSearching, setIsSearching] = useState(false);
-  const [messageAlert, setMessageAlert] = useState(false);
-  // const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -31,7 +23,7 @@ export const Searcher = () => {
 
   useEffect(() => {
     dispatch(fetchGetImages(img));
-  }, [dispatch, img]); // con paginación debo añadir page en el array.
+  }, [dispatch, img]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,17 +32,7 @@ export const Searcher = () => {
 
   const handleClick = (photo) => {
     dispatch(addImage(photo));
-    setMessageAlert(true);
   };
-
-  const handleClose = () => {
-    setMessageAlert(false);
-  };
-
-  // const handleChange = (event, value) => {
-  //   setPage(value);
-  //   console.log(value);
-  // };
 
   return (
     <>
@@ -135,85 +117,10 @@ export const Searcher = () => {
                 }}
                 onClick={() => handleClick(item)}
               />
-
-              {messageAlert && (
-                <Modal open={handleClick} onClose={handleClose}>
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: 300,
-                    height: 100,
-                    backgroundColor: "white",
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: "10px",
-                  }}
-                >
-                
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      textAlign="center"
-                      color="#4527a0"
-                      sx={{
-                        marginBottom: "60px",
-                      }}
-                    >
-                      Saved image - Check it out!{" "}
-                    </Typography>
-                
-                  
-                  </Box>
-                </Box>
-              </Modal>
-               
-              )}
-
-              {/* {show && (
-                <GradeIcon
-                  sx={{
-                    backgroundColor: "transparent",
-                    borderRadius: "100%",
-                    color: "#ffeb3b",
-                    fontSize: "30px",
-                    display: "block",
-                    padding: "3px",
-                    marginLeft: "auto",
-                    marginRight: 0,
-                    marginBottom: "300px",
-                    ":hover": {
-                      cursor: "pointer",
-                    },
-                  }}
-                />
-              )} */}
             </ListItem>
           ))}
         </Grid>
       </Box>
-      {/* <Pagination
-        count={10}
-        variant="outlined"
-        color="secondary"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "50px",
-          marginBottom: "100px",
-        }}
-        page={page}
-        onChange={handleChange}
-        //La paginación no funciona, probar otro componente o hacerla a mano
-      /> */}
     </>
   );
 };

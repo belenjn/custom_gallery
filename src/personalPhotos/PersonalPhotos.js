@@ -11,7 +11,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/system";
-import { deleteImage } from "../features/imagesSlice";
+import {
+  deleteImage,
+  likesPhotos,
+  heightPhotos,
+  widthPhotos,
+} from "../features/imagesSlice";
 import InfoIcon from "@mui/icons-material/Info";
 import { MainModal } from "../modal/MainModal";
 
@@ -22,8 +27,6 @@ export const PersonalPhotos = () => {
   const [activeImage, setActiveImage] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(null);
   const [search, setSearch] = useState("");
-  const [likesFilter, setLikesFilter] = useState(false)
- 
 
   const dispatch = useDispatch();
 
@@ -38,7 +41,6 @@ export const PersonalPhotos = () => {
     setSearch("");
   };
 
-
   function filterImage() {
     if (search.length) {
       const newArray = favImages.filter((photo) => {
@@ -46,58 +48,14 @@ export const PersonalPhotos = () => {
           .toLocaleLowerCase()
           .includes(search.toLocaleLowerCase());
       });
+
       return newArray;
     } else {
-      return favImages
+      return favImages;
     }
   }
 
-  
-  function likesPhotos() {
-    let newLikes = [...favImages];
-    const result = newLikes.sort((a, b) => {
-      if (a.likes > b.likes) {
-        return -1;
-      }
-      if (a.likes < b.likes) {
-        return 1;
-      }
-      return 0;
-    });
-    return result;
-  }
-
-  function widthPhotos() {
-    let newWidth = [...favImages];
-    const result = newWidth.sort((a, b) => {
-      if (a.width > b.width) {
-        return -1;
-      }
-      if (a.width < b.width) {
-        return 1;
-      }
-      return 0;
-    });
-    return result;
-  }
-
-  function heightPhotos() {
-    let newHeight = [...favImages];
-    const result = newHeight.sort((a, b) => {
-      if (a.height > b.height) {
-        return -1;
-      }
-      if (a.height < b.height) {
-        return 1;
-      }
-      return 0;
-    });
-    return result;
-  }
-
   const imagesFiltered = filterImage();
-
-
 
   const handleSearchDescription = (e) => {
     setSearch(e.currentTarget.value);
@@ -147,17 +105,9 @@ export const PersonalPhotos = () => {
             label="Sort"
             // onChange={handleChange}
           >
-            <MenuItem onClick={() => {
-              likesPhotos();
-            }}>
-              Likes
-            </MenuItem>
-            <MenuItem onClick={heightPhotos}>
-              Height
-            </MenuItem>
-            <MenuItem nClick={widthPhotos}>
-              Width
-            </MenuItem>
+            <MenuItem onClick={() => dispatch(likesPhotos())}>Likes</MenuItem>
+            <MenuItem onClick={() => dispatch(heightPhotos())}>Height</MenuItem>
+            <MenuItem onClick={() => dispatch(widthPhotos())}>Width</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -227,7 +177,6 @@ export const PersonalPhotos = () => {
 
                 <InfoIcon
                   sx={{
-                    // backgroundColor: "#448aff",
                     borderRadius: "100%",
                     color: "#448aff",
                     fontSize: "35px",

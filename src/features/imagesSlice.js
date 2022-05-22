@@ -90,6 +90,37 @@ export const imagesSlice = createSlice({
       state.favImages = statePhoto;
       setLocalStorageFunc(state.favImages);
     },
+    likesPhotos: (state) => {
+      state.favImages.sort((a, b) => {
+        if (a.likes > b.likes) {
+          return -1;
+        }
+        if (a.likes < b.likes) {
+          return 1;
+        }
+        return 0;
+      });
+    }, widthPhotos: (state) => {
+      state.favImages.sort((a, b) => {
+        if (a.width > b.width) {
+          return -1;
+        }
+        if (a.width < b.width) {
+          return 1;
+        }
+        return 0;
+      })
+    }, heightPhotos: (state) => {
+      state.favImages.sort((a, b) => {
+        if (a.height > b.height) {
+          return -1;
+        }
+        if (a.height < b.height) {
+          return 1;
+        }
+        return 0;
+      });
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -106,7 +137,7 @@ export const imagesSlice = createSlice({
   },
 });
 
-export const { addImage, deleteImage, modifyDescriptionImage } =
+export const { addImage, deleteImage, modifyDescriptionImage, likesPhotos, widthPhotos, heightPhotos } =
   imagesSlice.actions;
 
 export default imagesSlice.reducer;
