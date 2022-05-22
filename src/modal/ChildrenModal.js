@@ -10,14 +10,13 @@ import React from "react";
 import { modifyDescriptionImage } from "../features/imagesSlice";
 import { useDispatch } from "react-redux";
 
-export const ChildrenModal = (
-  {item,
+export const ChildrenModal = ({
+  item,
   edit,
   setEdit,
   descriptionPhoto,
-  setDescriptionPhoto}
-  
-) => {
+  setDescriptionPhoto,
+}) => {
   const dispatch = useDispatch();
 
   const handleClickCloseModalChildren = () => {
@@ -48,7 +47,6 @@ export const ChildrenModal = (
             boxShadow: 24,
             p: 4,
             borderRadius: "10px",
-            // border: "1px solid black",
           }}
         >
           <CloseIcon

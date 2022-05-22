@@ -1,7 +1,6 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import image from "./wallpaper.jpg";
 import vector from "./vector.png";
 
 export const MainPage = () => {
@@ -49,14 +48,13 @@ export const MainPage = () => {
         }}
       >
         <Button
-          sx={{ 
-              bgcolor: "#4527a0",
-              ":hover": {
-                cursor: "pointer",
-                bgcolor: "#b388ff"
-
-              }
-            }}
+          sx={{
+            bgcolor: "#4527a0",
+            ":hover": {
+              cursor: "pointer",
+              bgcolor: "#b388ff",
+            },
+          }}
           size="large"
           variant="contained"
           component={NavLink}

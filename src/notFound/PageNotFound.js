@@ -5,16 +5,22 @@ import imageNotFound from "./404notfound.png";
 
 export const PageNotFound = () => {
   return (
-    <Box sx={{
-        marginTop: 15
-    }}>
-      <Typography variant="h2" textAlign="center" >
+    <Box
+      sx={{
+        marginTop: 15,
+      }}
+    >
+      <Typography variant="h2" textAlign="center">
         404 not found
       </Typography>
       <br />
-      <Typography variant="h5" textAlign="center" sx={{
-        marginTop: 5
-    }}>
+      <Typography
+        variant="h5"
+        textAlign="center"
+        sx={{
+          marginTop: 5,
+        }}
+      >
         Woops... Looks like this page doesn't exist 😢
       </Typography>
       <br />
@@ -24,16 +30,26 @@ export const PageNotFound = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          width: 700,
-          height: 300,
+          height: {
+            xs: "350px",
+            sm: "350px",
+            md: "350px",
+            lg: "350px",
+            xl: "350px",
+          },
           margin: "auto",
-          marginTop: 10
-
+          width: {
+            xs: "300px",
+            sm: "500px",
+            md: "500px",
+            lg: "500px",
+            xl: "500px",
+          },
+          marginTop: 10,
         }}
       />
       <br />
       <br />
-      
     </Box>
   );
 };

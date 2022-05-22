@@ -1,6 +1,5 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import React from "react";
-// import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { Box } from "@mui/system";
 import { NavLink } from "react-router-dom";
 
@@ -19,10 +18,10 @@ export const NavBar = () => {
               sx={{
                 textDecoration: "none",
                 fontSize: {
-                    xs: "15px",
-                    sm: "20px",
-                    md: "30px",
-                    lg: "35px"
+                  xs: "15px",
+                  sm: "20px",
+                  md: "30px",
+                  lg: "35px",
                 },
                 color: "#fff",
                 ":hover": {
@@ -35,15 +34,15 @@ export const NavBar = () => {
             </Button>
           </Typography>
           <Typography>
-          <Button
+            <Button
               component={NavLink}
               to="/search"
               sx={{
                 fontSize: {
-                    xs: "10px",
-                    sm: "10px",
-                    md: "15px",
-                    lg: "15px"
+                  xs: "10px",
+                  sm: "10px",
+                  md: "15px",
+                  lg: "15px",
                 },
                 color: "#fff",
                 marginLeft: "20px",
@@ -58,12 +57,13 @@ export const NavBar = () => {
             <Button
               component={NavLink}
               to="/myPhotos"
-              sx={{fontSize: {
-                xs: "10px",
-                sm: "10px",
-                md: "15px",
-                lg: "15px"
-            },
+              sx={{
+                fontSize: {
+                  xs: "10px",
+                  sm: "10px",
+                  md: "15px",
+                  lg: "15px",
+                },
                 color: "#fff",
                 ":hover": {
                   bgcolor: "#b388ff",
@@ -74,7 +74,6 @@ export const NavBar = () => {
             >
               My photos
             </Button>
-            
           </Typography>
         </Toolbar>
       </AppBar>

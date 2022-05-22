@@ -100,7 +100,8 @@ export const imagesSlice = createSlice({
         }
         return 0;
       });
-    }, widthPhotos: (state) => {
+    },
+    widthPhotos: (state) => {
       state.favImages.sort((a, b) => {
         if (a.width > b.width) {
           return -1;
@@ -109,8 +110,9 @@ export const imagesSlice = createSlice({
           return 1;
         }
         return 0;
-      })
-    }, heightPhotos: (state) => {
+      });
+    },
+    heightPhotos: (state) => {
       state.favImages.sort((a, b) => {
         if (a.height > b.height) {
           return -1;
@@ -120,7 +122,7 @@ export const imagesSlice = createSlice({
         }
         return 0;
       });
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -137,7 +139,13 @@ export const imagesSlice = createSlice({
   },
 });
 
-export const { addImage, deleteImage, modifyDescriptionImage, likesPhotos, widthPhotos, heightPhotos } =
-  imagesSlice.actions;
+export const {
+  addImage,
+  deleteImage,
+  modifyDescriptionImage,
+  likesPhotos,
+  widthPhotos,
+  heightPhotos,
+} = imagesSlice.actions;
 
 export default imagesSlice.reducer;

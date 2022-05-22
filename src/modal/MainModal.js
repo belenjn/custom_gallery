@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import { ChildrenModal } from "./ChildrenModal";
 
-export const MainModal = ({item, openModal, setOpenModal}) => {
+export const MainModal = ({ item, openModal, setOpenModal }) => {
   const [edit, setEdit] = useState(false);
   const [descriptionPhoto, setDescriptionPhoto] = useState("");
 
@@ -20,19 +20,18 @@ export const MainModal = ({item, openModal, setOpenModal}) => {
     setDescriptionPhoto(oldDescription);
   };
 
-  if(!item) {
-      return null
+  if (!item) {
+    return null;
   }
 
   return (
     <>
-      <Modal 
-      open={openModal} 
-      onClose={handleClickCloseModalInfo}
-      sx={{
-        backgroundColor: "#0000070"
-      }}
-     
+      <Modal
+        open={openModal}
+        onClose={handleClickCloseModalInfo}
+        sx={{
+          backgroundColor: "#0000070",
+        }}
       >
         <Box
           sx={{
@@ -134,7 +133,7 @@ export const MainModal = ({item, openModal, setOpenModal}) => {
                   transition: "0.2s ease",
                 },
               }}
-              onClick={() => handleClickEditDescription(item.description, )}
+              onClick={() => handleClickEditDescription(item.description)}
             />
             <br />
             <Typography
@@ -173,7 +172,6 @@ export const MainModal = ({item, openModal, setOpenModal}) => {
         setEdit={setEdit}
         descriptionPhoto={descriptionPhoto}
         setDescriptionPhoto={setDescriptionPhoto}
-
       />
     </>
   );

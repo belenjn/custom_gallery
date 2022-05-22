@@ -101,9 +101,7 @@ export const PersonalPhotos = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value={age}
             label="Sort"
-            // onChange={handleChange}
           >
             <MenuItem onClick={() => dispatch(likesPhotos())}>Likes</MenuItem>
             <MenuItem onClick={() => dispatch(heightPhotos())}>Height</MenuItem>
