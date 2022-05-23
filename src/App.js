@@ -1,4 +1,4 @@
-import { Route, HashRouter as Router, Routes } from "react-router-dom";
+import { Route, HashRouter, Routes } from "react-router-dom";
 import { NavBar } from "./navbar/NavBar";
 import {PersonalPhotos} from './personalPhotos/PersonalPhotos';
 import {Searcher} from './search/Searcher';
@@ -9,7 +9,7 @@ import { PageNotFound } from "./notFound/PageNotFound";
 function App() {
   return (
     
-    <Router basename="custom_gallery">
+    <HashRouter>
       <NavBar />
       <Routes>
         <Route path="/" exact element={<MainPage />} />
@@ -17,7 +17,7 @@ function App() {
         <Route path="/myPhotos" element={<PersonalPhotos />} />
         <Route path="*" element={<PageNotFound/>} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
