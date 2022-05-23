@@ -41,12 +41,18 @@ export const ChildrenModal = ({
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 520,
             height: 400,
             backgroundColor: "white",
             boxShadow: 24,
             p: 4,
             borderRadius: "10px",
+            xs: {
+              width: 300
+            }, 
+            md: {
+            width: 520,
+
+            }
           }}
         >
           <CloseIcon
