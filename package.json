@@ -1,5 +1,6 @@
 {
   "name": "gallery-photos",
+  "homepage": "https://belenjn.github.io/custom__gallery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
