@@ -9,7 +9,7 @@ import { PageNotFound } from "./notFound/PageNotFound";
 function App() {
   return (
     
-    <Router>
+    <Router basename="custom_gallery">
       <NavBar />
       <Routes>
         <Route path="/" exact element={<MainPage />} />
