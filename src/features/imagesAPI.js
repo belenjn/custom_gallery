@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const apiKey = "XF3k_wCO3fyZO5fsdZxwgttiq1UPs5_12BZ0kDit9bM";
+import {apiKey} from "../env";
 
 export const fetchImg = async(img, page) => {
     return await axios
