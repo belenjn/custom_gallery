@@ -14,7 +14,7 @@ export const NavBar = () => {
           }}
         >
           <Typography>
-            <Button
+            <Box
               sx={{
                 textDecoration: "none",
                 fontSize: {
@@ -30,7 +30,7 @@ export const NavBar = () => {
               href="/custom_gallery"
             >
               CUSTOM GALLERY
-            </Button>
+            </Box>
           </Typography>
           <Typography>
             <Button
