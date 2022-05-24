@@ -25,7 +25,6 @@ export const NavBar = () => {
                 },
                 color: "#fff",
                 ":hover": {
-                  cursor: "pointer",
                 },
               }}
               href="/custom_gallery"
