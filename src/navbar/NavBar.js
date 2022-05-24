@@ -28,7 +28,7 @@ export const NavBar = () => {
                   cursor: "pointer",
                 },
               }}
-              href="/"
+              href="/custom_gallery"
             >
               CUSTOM GALLERY
             </Button>
