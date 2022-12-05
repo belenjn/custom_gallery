@@ -11,8 +11,10 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
-import { MainModal } from "../modal/MainModal";
+import InfoIcon from "@mui/icons-material/Info";
+
 import Swal from "sweetalert2";
+import { MainModal } from "../modal/MainModal";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
@@ -51,7 +53,6 @@ export const Searcher = () => {
     setActiveImage(item);
     setActiveImageIndex(index);
   };
-  
 
   return (
     <>
@@ -102,7 +103,6 @@ export const Searcher = () => {
 
           {images.map((item, index) => (
             <ListItem
-              onClick={() => handleClickModalInfo(item, index)}
               key={item.id}
               sx={{
                 backgroundImage: `url(${item.urls.small})`,
@@ -115,12 +115,29 @@ export const Searcher = () => {
                 marginRight: "1%",
                 height: "350px",
                 width: "240px",
-
-                ":hover": {
-                  cursor: "pointer",
-                },
               }}
             >
+              <InfoIcon
+                sx={{
+                  color: "white",
+                  borderRadius: "100%",
+                  fontSize: "35px",
+                  padding: "5px",
+                  display: "block",
+                  marginRight: "auto",
+                  marginLeft: 0,
+                  marginBottom: "300px",
+
+                  zIndex: 5,
+                  ":hover": {
+                    cursor: "pointer",
+                    color: "#8CDAFA",
+                    fontSize: "40px",
+                    transition: "0.2s ease",
+                  },
+                }}
+                onClick={() => handleClickModalInfo(item, index)}
+              />
               <AddIcon
                 sx={{
                   backgroundColor: "#4527a0",
@@ -146,12 +163,11 @@ export const Searcher = () => {
           ))}
         </Grid>
       </Box>
-      {/* // TODO: arreglar el modal y que no salte al querer añadir la img */}
-      {/* <MainModal
+      <MainModal
         item={images[activeImageIndex]}
         openModal={openModal}
         setOpenModal={setOpenModal}
-      /> */}
+      />
     </>
   );
 };
