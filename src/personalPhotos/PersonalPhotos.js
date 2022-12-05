@@ -129,68 +129,78 @@ export const PersonalPhotos = () => {
             marginTop: "100px",
           }}
         >
-          {imagesFiltered.map((item, index) => (
-            <ListItem
-              key={item.id}
-              sx={{
-                backgroundImage: `url(${item.urls.small})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "10px",
-                marginBottom: "20px",
-                marginLeft: "1%",
-                marginRight: "1%",
-                height: "350px",
-                width: "240px",
+          {imagesFiltered.length === 0 ? (
+            <h2
+              style={{
+                color: "#4528A0",
               }}
             >
-              <Box
+              No saved photos yet :(
+            </h2>
+          ) : (
+            imagesFiltered.map((item, index) => (
+              <ListItem
+                key={item.id}
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
+                  backgroundImage: `url(${item.urls.small})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  borderRadius: "10px",
+                  marginBottom: "20px",
+                  marginLeft: "1%",
+                  marginRight: "1%",
+                  height: "350px",
                   width: "240px",
-                  height: "100%",
-                  margin: "auto",
                 }}
               >
-                <DeleteIcon
+                <Box
                   sx={{
-                    backgroundColor: "#dd2c00",
-                    borderRadius: "100%",
-                    color: "white",
-                    fontSize: "22px",
-                    padding: "5px",
-                    display: "block",
-                    marginBottom: "300px",
-                    ":hover": {
-                      cursor: "pointer",
-                      backgroundColor: "#bf360c",
-                      fontSize: "25px",
-                      transition: "0.2s ease",
-                    },
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "240px",
+                    height: "100%",
+                    margin: "auto",
                   }}
-                  onClick={() => dispatch(deleteImage(item))}
-                />
+                >
+                  <DeleteIcon
+                    sx={{
+                      backgroundColor: "#dd2c00",
+                      borderRadius: "100%",
+                      color: "white",
+                      fontSize: "22px",
+                      padding: "5px",
+                      display: "block",
+                      marginBottom: "300px",
+                      ":hover": {
+                        cursor: "pointer",
+                        backgroundColor: "#bf360c",
+                        fontSize: "25px",
+                        transition: "0.2s ease",
+                      },
+                    }}
+                    onClick={() => dispatch(deleteImage(item))}
+                  />
 
-                <InfoIcon
-                  sx={{
-                    borderRadius: "100%",
-                    color: "#448aff",
-                    fontSize: "35px",
-                    display: "block",
-                    ":hover": {
-                      cursor: "pointer",
-                      color: "#2962ff",
-                      fontSize: "38px",
-                      transition: "0.2s ease",
-                    },
-                  }}
-                  onClick={() => handleClickModalInfo(item, index)}
-                />
-              </Box>
-            </ListItem>
-          ))}
+                  <InfoIcon
+                    sx={{
+                      borderRadius: "100%",
+                      color: "#448aff",
+                      fontSize: "35px",
+                      display: "block",
+                      ":hover": {
+                        cursor: "pointer",
+                        color: "#2962ff",
+                        fontSize: "38px",
+                        transition: "0.2s ease",
+                      },
+                    }}
+                    onClick={() => handleClickModalInfo(item, index)}
+                  />
+                </Box>
+              </ListItem>
+            ))
+          )}
         </Grid>
       </Box>
       <MainModal

@@ -10,11 +10,17 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
+import InfoIcon from "@mui/icons-material/Info";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
+import { MainModal } from "../modal/MainModal";
+import Swal from "sweetalert2";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
   const [isSearching, setIsSearching] = useState(false);
+  const [activeImage, setActiveImage] = useState(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -31,6 +37,16 @@ export const Searcher = () => {
 
   const handleClick = (photo) => {
     dispatch(addImage(photo));
+    Swal.fire({
+      icon: "success",
+      title: "Post added",
+    });
+  };
+
+  const handleClickModalInfo = (item, index) => {
+    setOpenModal(!openModal);
+    setActiveImage(item);
+    setActiveImageIndex(index);
   };
 
   return (
@@ -80,8 +96,9 @@ export const Searcher = () => {
         >
           {isSearching && <CircularProgress color="secondary" />}
 
-          {images.map((item) => (
+          {images.map((item, index) => (
             <ListItem
+              onClick={() => handleClickModalInfo(item, index)}
               key={item.id}
               sx={{
                 backgroundImage: `url(${item.urls.small})`,
@@ -94,6 +111,10 @@ export const Searcher = () => {
                 marginRight: "1%",
                 height: "350px",
                 width: "240px",
+
+                ":hover": {
+                  cursor: "pointer",
+                },
               }}
             >
               <AddIcon
@@ -120,6 +141,11 @@ export const Searcher = () => {
           ))}
         </Grid>
       </Box>
+      <MainModal
+        item={images[activeImageIndex]}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </>
   );
 };
