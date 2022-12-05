@@ -31,7 +31,7 @@ export const Searcher = () => {
 
   useEffect(() => {
     dispatch(fetchGetImages(img));
-  }, [dispatch, img]);
+  }, [dispatch, img, images]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +51,7 @@ export const Searcher = () => {
     setActiveImage(item);
     setActiveImageIndex(index);
   };
+  
 
   return (
     <>
@@ -131,6 +132,7 @@ export const Searcher = () => {
                   marginLeft: "auto",
                   marginRight: 0,
                   marginBottom: "300px",
+                  zIndex: 5,
                   ":hover": {
                     cursor: "pointer",
                     backgroundColor: "#b388ff",
@@ -144,11 +146,12 @@ export const Searcher = () => {
           ))}
         </Grid>
       </Box>
-      <MainModal
+      {/* // TODO: arreglar el modal y que no salte al querer añadir la img */}
+      {/* <MainModal
         item={images[activeImageIndex]}
         openModal={openModal}
         setOpenModal={setOpenModal}
-      />
+      /> */}
     </>
   );
 };

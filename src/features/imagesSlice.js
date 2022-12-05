@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchImg } from "./imagesAPI";
 
-
 export const fetchGetImages = createAsyncThunk(
   "fetchImages",
   async (img, page) => {
@@ -92,7 +91,16 @@ export const imagesSlice = createSlice({
       })
       .addCase(fetchGetImages.fulfilled, (state, action) => {
         state.status = "success";
-        state.images = action.payload;
+
+        const favImages = getLocalStorageFunc();
+
+        favImages.forEach((img) => {
+          action.payload = action.payload.filter(
+            (value) => value.id !== img.id
+          );
+        });
+     
+          state.images = action.payload;
       })
       .addCase(fetchGetImages.rejected, (state) => {
         state.status = "failed";
