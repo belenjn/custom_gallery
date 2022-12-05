@@ -10,16 +10,19 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import InfoIcon from "@mui/icons-material/Info";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
 import { MainModal } from "../modal/MainModal";
 import Swal from "sweetalert2";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
+
   const [isSearching, setIsSearching] = useState(false);
+
   const [activeImage, setActiveImage] = useState(null);
+
   const [activeImageIndex, setActiveImageIndex] = useState(null);
+
   const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
