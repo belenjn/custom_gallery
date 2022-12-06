@@ -43,7 +43,7 @@ export const NavBar = () => {
   });
   return (
     <Box sx={{ flexGrow: 1 }} position="static">
-      <AppBar position="static" sx={{ bgcolor: "#4527a0" }}>
+      <AppBar position="static" sx={{ bgcolor: "#4527a0", height: 70 }}>
         <Toolbar
           sx={{
             flexWrap: "wrap",
@@ -72,10 +72,16 @@ export const NavBar = () => {
                   borderRadius: 10,
                   padding: 0.5,
                   height: 40,
-                  width: 150,
+                  width: {
+                    xs: "100px",
+                    sm: "150px",
+                    md: "150px",
+                    lg: "150px",
+                  },
                   backgroundImage: `url(${image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                 
                 }}
               />
             </Box>
