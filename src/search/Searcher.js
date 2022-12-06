@@ -11,10 +11,8 @@ import { Box } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { addImage, fetchGetImages } from "../features/imagesSlice";
-import InfoIcon from "@mui/icons-material/Info";
 
 import Swal from "sweetalert2";
-import { MainModal } from "../modal/MainModal";
 
 export const Searcher = () => {
   const [img, setImg] = useState("random");
@@ -23,9 +21,6 @@ export const Searcher = () => {
 
   const [activeImage, setActiveImage] = useState(null);
 
-  const [activeImageIndex, setActiveImageIndex] = useState(null);
-
-  const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,11 +43,6 @@ export const Searcher = () => {
     });
   };
 
-  const handleClickModalInfo = (item, index) => {
-    setOpenModal(!openModal);
-    setActiveImage(item);
-    setActiveImageIndex(index);
-  };
 
   return (
     <>
@@ -117,27 +107,6 @@ export const Searcher = () => {
                 width: "240px",
               }}
             >
-              <InfoIcon
-                sx={{
-                  color: "white",
-                  borderRadius: "100%",
-                  fontSize: "35px",
-                  padding: "5px",
-                  display: "block",
-                  marginRight: "auto",
-                  marginLeft: 0,
-                  marginBottom: "300px",
-
-                  zIndex: 5,
-                  ":hover": {
-                    cursor: "pointer",
-                    color: "#8CDAFA",
-                    fontSize: "40px",
-                    transition: "0.2s ease",
-                  },
-                }}
-                onClick={() => handleClickModalInfo(item, index)}
-              />
               <AddIcon
                 sx={{
                   backgroundColor: "#4527a0",
@@ -163,11 +132,6 @@ export const Searcher = () => {
           ))}
         </Grid>
       </Box>
-      <MainModal
-        item={images[activeImageIndex]}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-      />
     </>
   );
 };
