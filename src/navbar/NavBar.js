@@ -43,7 +43,7 @@ export const NavBar = () => {
   });
   return (
     <Box sx={{ flexGrow: 1 }} position="static">
-      <AppBar position="static" sx={{ bgcolor: "#4527a0", height: 70 }}>
+      <AppBar position="static" sx={{ bgcolor: "#4527a0", height: 70, justifyContent: 'center'}}>
         <Toolbar
           sx={{
             flexWrap: "wrap",
@@ -61,7 +61,6 @@ export const NavBar = () => {
                   lg: "35px",
                 },
                 color: "#fff",
-                ":hover": {},
               }}
               href="/custom_gallery"
             >
