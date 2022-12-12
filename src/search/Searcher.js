@@ -39,7 +39,7 @@ export const Searcher = () => {
     dispatch(addImage(photo));
     Swal.fire({
       icon: "success",
-      title: "Post added",
+      title: "Photo added",
     });
   };
 
